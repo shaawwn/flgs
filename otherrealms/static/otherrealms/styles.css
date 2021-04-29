@@ -2,12 +2,53 @@
     box-sizing: border-box;
 }
 
+html {
+    margin: 0;
+    height: 100%;
+}
+
+body {
+    min-height: 100vh;
+    background-color: rgb(185, 185, 240);
+    height: 100vh;
+}
 /* Containers */
 
 #container-index {
-    background-color: white;
+    display: flex;
+    margin: 25px;  
+    align-items: center;  
 }
 
+#container-frontpage-nav {
+    display: flex;
+    flex-wrap: wrap;
+    padding: 15px;
+    background-color:rgb(185, 185, 240);
+    justify-content: space-evenly;
+}
+
+.main {
+    padding-top: 50px;
+}
+/* Frontpage */
+
 .jumbotron {
-    background-image: url('images/storefront.png')
+    background-image: url('images/storefront.png');
+    margin: 25px;
+    height: 700px;
+    width: 100%;
+}
+
+.logo-link {
+    margin:5px;
+    width: 345x;
+    height: 215px;
+    padding: 10px;
+}
+
+/* Random */
+
+.login {
+    align-items: flex-end;
 }

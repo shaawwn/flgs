@@ -5,9 +5,9 @@
 
 <div id="container-index">
     <div class="jumbotron text-center">
-        <div class="container">
+        <div class="container main">
           <h1 class="display-4">Welcome to Other Realms!</h1>
-          <p class="lead">This is a simple hero unit, a simple jumbotron-style component for calling extra attention to featured content or information.</p>
+          <p class="lead">Friendly neigborgood game and comic store!</p>
           <hr class="my-4">
           <p>It uses utility classes for typography and spacing to space content out within the larger container.</p>
           <p class="lead">
@@ -17,6 +17,20 @@
     </div>
 </div>
 
+<div id="container-frontpage-nav">
+  <a href="#">
+    <img  class="logo-link" src="{% static 'otherrealms/images/40k_logo.jpg' %}">
+  </a>
+  <a href="#">
+    <img  class="logo-link" src="{% static 'otherrealms/images/mtg_logo.jpg' %}">
+  </a>
+  <a href="#">
+    <img class="logo-link" src="{% static 'otherrealms/images/tabletop_logo.jpg' %}">
+  </a>
+  <a href="#">
+    <img class="logo-link" src="{% static 'otherrealms/images/comics.jpg' %}">
+  </a>
+</div>
 {% endblock %}
 
 {% block script %}
