@@ -1,0 +1,13 @@
+* {
+    box-sizing: border-box;
+}
+
+/* Containers */
+
+#container-index {
+    background-color: white;
+}
+
+.jumbotron {
+    background-image: url('images/storefront.png')
+}
