@@ -70,7 +70,7 @@ def register(request):
 # ----------------------------------- PAGE VIEWS -------------------------------------------
 
 
-def events(request, event):
+def events(request):
 
     return render(request, 'otherrealms/events.html')
 

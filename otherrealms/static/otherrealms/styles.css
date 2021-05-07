@@ -29,10 +29,15 @@ body {
     justify-content: space-evenly;
 }
 
-#container-games-page {
+.container-page {
     display: flex;
     justify-content: center;
 }
+/* 
+.container-games-page {
+    display: flex;
+    justify-content: center;
+} */
 
 .main {
     padding-top: 50px;
