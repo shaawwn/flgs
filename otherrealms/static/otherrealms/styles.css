@@ -4,20 +4,21 @@
 
 html {
     margin: 0;
-    height: 100%;
+    min-height: 100%;
 }
 
 body {
-    min-height: 100vh;
+    /* min-height: 100vh; */
     background-color: rgb(185, 185, 240);
-    height: 100vh;
+    /* height: 100vh; */
+    min-height: 100%;
 }
 /* Containers */
 
 #container-index {
     display: flex;
     margin: 25px;  
-    align-items: center;  
+    align-items: center;
 }
 
 #container-frontpage-nav {
@@ -28,15 +29,26 @@ body {
     justify-content: space-evenly;
 }
 
+#container-games-page {
+    display: flex;
+    justify-content: center;
+}
+
 .main {
     padding-top: 50px;
 }
 /* Frontpage */
 
 .jumbotron {
+    display: flex;
     background-image: url('images/storefront.png');
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+    background: contain;
     margin: 25px;
-    height: 700px;
+    height: 400px;
+    /* height: 700px; */
+
     width: 100%;
 }
 
@@ -47,8 +59,15 @@ body {
     padding: 10px;
 }
 
+
+/* General Page structure */
+
+.page-header {
+    text-align: center;
+}
 /* Random */
 
 .login {
-    align-items: flex-end;
+    justify-content: flex-end;
 }
+

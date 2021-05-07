@@ -10,29 +10,40 @@
     </head>
     <body>
         <nav class="navbar navbar-expand-lg navbar-light bg-light"> <!--Can change light/dark themes-->
+            <div>
+              <!-- {% if user.is_authenticated %}
+                  Signed in as <strong>{{ user.username }}</strong>.
+              {% else %}
+                  Not signed in.
+              {% endif %} -->
+              </div>
             <div class="container"> <!--contiainer vs. container-fluid can adjust where the navbar starts-->
-              <a class="navbar-brand" href="#">Other Realms</a>
+              <a class="navbar-brand" href="{% url 'index' %}">Other Realms</a>
               <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
               </button>
               <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                   <li class="nav-item">
-                    <a class="nav-link" href="#">Events</a>
+                    <a class="nav-link" href="{% url 'events' %}">Events</a>
                   </li>
                   <li class="nav-item">
-                    <a class="nav-link" href="#">Order Online</a>
+                    <a class="nav-link" href="{% url 'online_catalog' %}">Order Online</a>
                   </li>
                   <li class="nav-item">
-                    <a class="nav-link" href="#">About Us</a>
+                    <a class="nav-link" href="{% url 'about' %}">About Us</a>
                   </li>
                   <li class="nav-item">
-                    <a class="nav-link" href="#">Contact</a>
+                    <a class="nav-link" href="{% url 'contact' %}">Contact</a>
                   </li>
                 </ul>
-                <ul class="navbar-nav me-auto mb-2 mb-lg-0 login">
-                  <a class="nav-link" href="#">Login</a>
-                </ul>
+                <!-- <ul class="navbar-nav me-auto mb-2 mb-lg-0 login"> -->
+                  {% if user.is_authenticated %}
+                    <div class="nav-link">Signed in as <strong>{{ user.username }}</strong>.</div>
+                    <a class="nav-link" href="{% url 'logout' %}">Logout</a>
+                  {% else %}
+                    <a class="nav-link" href="{% url 'login' %}">Login</a>
+                  {% endif %}
               </div>
             </div>
           </nav>

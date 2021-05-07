@@ -18,17 +18,20 @@
 </div>
 
 <div id="container-frontpage-nav">
-  <a href="#">
+  <a href="{% url 'games' 'warhammer 40k' %}">
     <img  class="logo-link" src="{% static 'otherrealms/images/40k_logo.jpg' %}">
   </a>
-  <a href="#">
+  <a href="{% url 'games' 'magic: the gathering' %}">
     <img  class="logo-link" src="{% static 'otherrealms/images/mtg_logo.jpg' %}">
   </a>
-  <a href="#">
+  <a href="{% url 'games' 'tabletop' %}">
     <img class="logo-link" src="{% static 'otherrealms/images/tabletop_logo.jpg' %}">
   </a>
-  <a href="#">
+  <a href="{% url 'games' 'comic' %}">
     <img class="logo-link" src="{% static 'otherrealms/images/comics.jpg' %}">
+  </a>
+  <a href="{% url 'games' 'collectibles' %}">
+    <img class="logo-link" src="{% static 'otherrealms/images/collectibles.jpg' %}">
   </a>
 </div>
 {% endblock %}
