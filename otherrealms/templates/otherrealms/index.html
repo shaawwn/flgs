@@ -4,7 +4,7 @@
 {% block body %}
 
 <div id="container-index">
-    <div class="jumbotron text-center">
+    <!-- <div class="jumbotron text-center">
         <div class="container main">
           <h1 class="display-4">Welcome to Other Realms!</h1>
           <p class="lead">Friendly neigborgood game and comic store!</p>
@@ -12,26 +12,44 @@
           <p class="lead">
           <a class="btn btn-primary btn-lg" href="#" role="button">Learn more</a>
           </p>
-      </div>
+        </div>
+    </div> -->
+  <div id="index-header-about">
+    <img class="header-image"src="{% static 'otherrealms/images/gunther.png' %}">
+    <div class="about">
+      <p>
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Quibusdam facilis odio officia delectus. Sapiente vel voluptates, 
+        ex repudiandae consectetur, nisi quos dolore porro velit dolor adipisci commodi ut quam totam!
+      </p>
     </div>
-</div>
 
-<div id="container-frontpage-nav">
-  <a href="{% url 'games' 'warhammer 40k' %}">
-    <img  class="logo-link" src="{% static 'otherrealms/images/40k_logo.jpg' %}">
-  </a>
-  <a href="{% url 'games' 'magic: the gathering' %}">
-    <img  class="logo-link" src="{% static 'otherrealms/images/mtg_logo.jpg' %}">
-  </a>
-  <a href="{% url 'games' 'tabletop' %}">
-    <img class="logo-link" src="{% static 'otherrealms/images/tabletop_logo.jpg' %}">
-  </a>
-  <a href="{% url 'games' 'comic' %}">
-    <img class="logo-link" src="{% static 'otherrealms/images/comics.jpg' %}">
-  </a>
-  <a href="{% url 'games' 'collectibles' %}">
-    <img class="logo-link" src="{% static 'otherrealms/images/collectibles.jpg' %}">
-  </a>
+  </div>
+
+  <div id="container-frontpage-nav">
+    <!-- <img class="banner-image" src="{% static 'otherrealms/images/gunther.png' %}"> -->
+    <h1 id="index-header">Welcome to Other Realms!</h1>
+    <h4>You're friendly local game shop!</h4>
+    <div class="jumbotron text-center">
+      <div class="container main">
+
+      </div>
+  </div>
+    <a href="{% url 'games' 'warhammer 40k' %}">
+      <img  class="logo-link" src="{% static 'otherrealms/images/40k_logo.jpg' %}">
+    </a>
+    <a href="{% url 'games' 'magic: the gathering' %}">
+      <img  class="logo-link" src="{% static 'otherrealms/images/mtg_logo.jpg' %}">
+    </a>
+    <a href="{% url 'games' 'tabletop' %}">
+      <img class="logo-link" src="{% static 'otherrealms/images/tabletop_logo.jpg' %}">
+    </a>
+    <a href="{% url 'games' 'comic' %}">
+      <img class="logo-link" src="{% static 'otherrealms/images/comics.jpg' %}">
+    </a>
+    <a href="{% url 'games' 'collectibles' %}">
+      <img class="logo-link" src="{% static 'otherrealms/images/collectibles.jpg' %}">
+    </a>
+  </div>
 </div>
 {% endblock %}
 
