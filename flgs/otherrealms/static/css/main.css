@@ -1,0 +1,98 @@
+/* Globals */
+body {
+    margin: 0px;
+    background-color: slategray;
+    box-sizing: border-box;
+}
+
+hr {
+    width: 80%;
+    height: 2px;
+    background-color: black;
+    border: 0px;
+}
+
+/* Navbar */
+#navbar {
+    display: flex;
+    justify-content: space-evenly;
+    background-color: rgb(59, 71, 83);
+    color: black;
+    font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif
+}
+
+.nav-item {
+    text-align: center;
+    /* color: white; */
+}
+
+.nav-item:hover {
+    color: grey;
+}
+
+/* Banner */
+
+#banner {
+    /* position: relative; */
+    width: 100%;
+    text-align: center;
+    /* display: flex; */
+    /* justify-content: center; */
+}
+
+#banner-container {
+    position: relative;
+    margin-right: 100px;
+    /* display: flex; */
+}
+
+#gunther-banner {
+    /* position: absolute; */
+    left:200px;
+    max-width: 12%;
+    height: auto;
+}
+
+#banner-name {
+    width: 50%;
+    margin-right: 0px;
+}
+
+/* Main Body */
+#main-container {
+    display: flex;
+    flex-direction: column;
+    width: 100vw;
+    height: 100vh;
+    background-color: slategray;
+}
+
+/* Content */
+
+#content-container {
+    display: flex;
+    width: 100%;
+    /* padding: 15px; */
+    justify-content: space-evenly;
+    /* margin: auto; */
+}
+
+#post-container {
+    width: 70%;
+    margin: 25px;
+    /* border: 1px solid black */
+}
+
+#link-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 20%;
+
+}
+
+.link-image {
+    width: 100%;
+    height: auto;
+    margin-top: 15px;
+}

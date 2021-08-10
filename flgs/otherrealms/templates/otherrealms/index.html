@@ -1,0 +1,45 @@
+{% load static %}
+
+<!DOCTYPE html>
+
+<html lang="en" translate="no">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>Other Realms Comics and Books</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="{% static '/css/main.css' %}">
+    </head>
+    <body>
+        <div id="main-container">
+            <div id="banner">
+                <div id="banner-container">
+                    <img id="gunther-banner" src="{% static 'images/gunther_invis.png' %}">
+                    <img id='banner-name' src="{% static 'images/banner.png' %}">
+                </div>
+            </div>
+            <hr>
+            <div id="navbar">
+                <h1 class="nav-item">Home</h1>
+                <h1 class="nav-item">Calender</h1>
+                <h1 class="nav-item">Contact</h1>
+            </div>
+            <hr>
+
+            <div id="content-container">
+                <div id="post-container">
+                    <h1>Events and Announcements</h1>
+                    <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Porro consequuntur ex suscipit expedita error recusandae placeat aspernatur cumque at commodi modi adipisci impedit a, dignissimos mollitia magnam provident beatae veniam.</p>
+                </div>
+                <div id="link-container">
+                    <img class="link-image" src="{% static 'images/40k_logo.jpeg' %}">
+                    <img class="link-image" src="{% static 'images/comics.jpeg' %}">
+                    <img class="link-image" src="{% static 'images/mtg_logo.jpeg' %}">
+                    <img class="link-image" src="{% static 'images/collectibles.jpeg' %}">
+                </div>
+            </div>
+        </div>
+        <script src="{% static '/js/main.js' %}"></script>
+    </body>
+</html>
