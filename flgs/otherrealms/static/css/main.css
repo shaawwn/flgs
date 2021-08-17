@@ -3,6 +3,9 @@ body {
     margin: 0px;
     background-color: slategray;
     box-sizing: border-box;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    color:rgb(183, 193, 208);
+    /* color: black; */
 }
 
 hr {
@@ -17,8 +20,8 @@ hr {
     display: flex;
     justify-content: space-evenly;
     background-color: rgb(59, 71, 83);
-    color: black;
-    font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif
+    /* color: black; */
+    /* font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif */
 }
 
 .nav-item {
@@ -77,22 +80,98 @@ hr {
     /* margin: auto; */
 }
 
+#contact-container {
+    display: none;
+}
 #post-container {
     width: 70%;
-    margin: 25px;
-    /* border: 1px solid black */
+    padding: 15px;
+    background-color:rgb(59, 71, 83);
+    /* color: rgb(162, 162, 162); */
+}
+
+.post {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    /* background-color: slategray; */
+    padding: 5px;
+    border: 2px solid black;
+    margin: auto;
+    width: 80%
+}
+
+.post-title {
+    font-size: 44px;
+    text-decoration: underline;
+}
+
+.post-content {
+    font-size: 18px;
+}
+
+.post-image {
+    width: 50%;
+    height: auto;
+    margin: auto;
 }
 
 #link-container {
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    /* justify-content: center; */
     width: 20%;
-
 }
 
 .link-image {
     width: 100%;
     height: auto;
     margin-top: 15px;
+}
+
+/* Calendar */
+
+#calendar-container {
+    display: none;
+    /* justify-content: center; */
+}
+
+#calendar-header {
+    width: 720px;
+    display: flex;
+    margin: auto;
+    /* justify-content: center; */
+}
+
+.day-header {
+    width: 100px;
+    height: 35px;
+    font-size: 18px;
+    text-align: center;
+    margin: auto;
+}
+
+#calendar-main {
+    margin: auto;
+    display: flex;
+    flex-wrap:wrap;
+    /* width: 80%; */
+    width: 720px;
+    height: 500px;
+    /* background-color: white; */
+}
+
+.day-square {
+    margin: auto;
+    width: 100px;
+    height: 100px;
+    background-color: white;
+    border: 1px solid black;
+    font-size: 24px;
+    text-align: right;
+}
+
+.day-square > p {
+    margin-top: 5px;
+    margin-right: 5px;
 }

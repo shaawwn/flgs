@@ -1,3 +1,26 @@
 from django.db import models
+from django.contrib.auth.models import AbstractUser
 
 # Create your models here.
+class User(AbstractUser):
+    pass
+
+class Post(models.Model):
+    # Post model for admin front page posts
+    # poster = models.ForeignKey('User', default=None, on_delete=models.CASCADE)
+    post_title = models.CharField(max_length=255)
+    post_content = models.TextField(blank=True)
+    post_image = models.ImageField(null=True, blank=True, upload_to="images/")
+
+    def __str__(self):
+        return self.post_title
+
+class ImageLink(models.Model):
+    # Class for image links on the right side of the front page
+    img_alt = models.CharField(max_length=255)
+    img_link = models.CharField(max_length=255)
+    img = models.ImageField(null=True, blank=True, upload_to="images/")
+
+    def __str__(self):
+        return self.img_alt
+
