@@ -22,7 +22,7 @@
             <hr>
             <div id="navbar">
                 <h1 class="nav-item" name="home">Home</h1>
-                <h1 class="nav-item" name="calendar">Calendar</h1>
+                <h1 class="nav-item" name="calendar">Event Calendar</h1>
                 <h1 class="nav-item" name="contact">Contact</h1>
             </div>
             <hr>
@@ -40,17 +40,13 @@
                     {% endfor %}
                 </div>
                 <div id="link-container">
-                    <!-- <img class="link-image" src="{% static 'images/40k_logo.jpeg' %}"> -->
-                    <!-- <img class="link-image" src="{% static 'images/comics.jpeg' %}"> -->
-                    <!-- <img class="link-image" src="{% static 'images/mtg_logo.jpeg' %}"> -->
-                    <!-- <img class="link-image" src="{% static 'images/collectibles.jpeg' %}"> -->
                     {% for image_link in image_links %}
                         <img class="link-image" src="{{ image_link.img.url }}">
                     {% endfor %}
                 </div>
             </div>
             <div id="calendar-container">
-                <h1>Calendar goes here</h1>
+                <h1 id="current-month"></h1>
                 <div id="calendar-header">
                     <p>Sunday</p>
                     <p>Monday</p>
