@@ -1,6 +1,7 @@
 console.log("Loading calendar...")
 event_object = JSON.parse(events)
 console.log(event_object.Random)
+// Need to add some ID to tie together event date iwth date on calendar
 
 
 
@@ -115,6 +116,10 @@ function addCalendar() {
     calendarCon.appendChild(calendarDiv)
 }
 
+function addEventToCalendar(eventsDict, calendar) {
+    // Add events to the calendar using the events dictionary
+
+}
 
 // Modal functions for adding event model when user clicks
 // on an event in the calendar

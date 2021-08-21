@@ -70,6 +70,7 @@
         </div>
         <script>
             let events = '{{ events|safe }}'
+            console.log("EVENTS IN INDEX", events, JSON.parse(events))
         </script>
         <script src="{% static '/js/main.js' %}"></script>
         <script src="{% static 'js/calendar.js' %}">
