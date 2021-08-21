@@ -66,9 +66,13 @@
                 <h1>Add a form that sends an email to company</h1>
             </div>
         </div>
+        
+        {{ events|json_script:"events" }}
         <script>
-            let events = "{{ events|safe }}"
-            let etest = JSON.parse(events)
+            // Above tag works and is more safe, but below declared events also works, but not all the time
+            // keeping original commented for psoterity
+            const events = JSON.parse(document.getElementById('events').textContent)
+            // let events = '{{ events|safe }}'
         </script>
         <script src="{% static '/js/main.js' %}"></script>
         <script src="{% static 'js/calendar.js' %}"></script>

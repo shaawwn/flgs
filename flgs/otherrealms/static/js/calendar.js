@@ -1,7 +1,6 @@
 console.log("Loading calendar...")
-// event_object = JSON.parse(events)
-console.log("EVENTS IN CALENDARJS", events)
 
+// Need to add some ID to tie together event date iwth date on calendar
 
 
 
@@ -75,6 +74,24 @@ function addCalendar() {
         day: 'numeric'
     })
 
+
+    parsedEvents = JSON.parse(events)
+    console.log(parsedEvents)
+    let keys = Object.keys(parsedEvents)
+    console.log("KEYS", keys)
+    for (let i = 0; i < keys.length;i++) {
+        let eventDate = parsedEvents[keys[i]][1]
+        // console.log(parsedEvents[keys[i]][1])
+        console.log(eventDate, day)
+        const dateCompare = date.toLocaleDateString('en-us', {
+            year: 'numeric',
+            month: 'numeric',
+            day: 'numeric'
+        })
+        console.log("Date compare", dateCompare)
+    }
+    // Match any events in the events ibject to calendar dates
+
     const paddingDays = days.indexOf(dateString.split(', ')[0]);
     console.log(dateString, daysInMonth, paddingDays)
     
@@ -115,6 +132,10 @@ function addCalendar() {
     calendarCon.appendChild(calendarDiv)
 }
 
+function addEventToCalendar(eventsDict, calendar) {
+    // Add events to the calendar using the events dictionary
+
+}
 
 // Modal functions for adding event model when user clicks
 // on an event in the calendar

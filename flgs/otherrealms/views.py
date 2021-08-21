@@ -1,7 +1,10 @@
 from django.shortcuts import render
 from .models import Post, ImageLink, CalendarEvent
 import json
+from datetime import datetime
 
+now = datetime.now()
+print(type(now), now.strftime("%-m/%d/%Y"))
 # Create your views here.
 def index(request):
     # Front page content, single page with home/calendar/contact info
@@ -24,6 +27,7 @@ def _event_to_json(events):
     for event in events:
         events_dict[event.event_title] = []
         events_dict[event.event_title].append(event.event_content)
+        events_dict[event.event_title].append(event.event_date.strftime('%Y/%m/%d'))
     return json.dumps(events_dict)
 
 
