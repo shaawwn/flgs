@@ -193,8 +193,15 @@ hr {
 /* Calendar Event Modal */
 
 #calendar-event-modal {
+    position: absolute;
     display: none;
     width: 100%;
-    height: 100%;
-    background-color: rgba(0,0,0,1);
+    height: 1000px;
+    background-color: rgba(0,0,0,0.7);
+}
+
+.event-details {
+    width: 200px;
+    height: 200px;
+    background-color: white;
 }

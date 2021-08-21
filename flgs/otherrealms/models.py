@@ -24,3 +24,13 @@ class ImageLink(models.Model):
     def __str__(self):
         return self.img_alt
 
+class CalendarEvent(models.Model):
+    # Mini-posts to be added to the calendar
+    event_title = models.CharField(max_length=64)
+    event_date = models.CharField(max_length=24, blank=True)
+    event_content = models.TextField(blank=True)
+    event_image = models.ImageField(null=True, blank=True, upload_to="images/")
+
+    def __str__(self):
+        return self.event_title
+

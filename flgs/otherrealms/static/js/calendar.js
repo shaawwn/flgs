@@ -1,4 +1,8 @@
 console.log("Loading calendar...")
+event_object = JSON.parse(events)
+console.log(event_object.Random)
+
+
 
 // Globals
 const calendarBtn = document.getElementsByName('calendar')[0]
@@ -95,7 +99,7 @@ function addCalendar() {
             let event = document.createElement('p')
             event.classList.add('calendar-event')
             day.innerText = i - paddingDays
-            event.innerText = 'event'
+            // event.innerText = "event" // This should be whatever content the event is from the event model
 
             daySquare.appendChild(day)
             daySquare.appendChild(event)
@@ -115,17 +119,50 @@ function addCalendar() {
 // Modal functions for adding event model when user clicks
 // on an event in the calendar
 function addEventModal() {
-    const eventDetails = document.getElementsByName('calendar-event-modal')
-
+    const eventDetailsModal = document.getElementById('calendar-event-modal')
+    let eventDetails = document.createElement('div')
+    eventDetails.classList.add('event-details')
+    
+    // createEventDetails(eventDetails)
+    // eventDetailsModal.appendChild(eventDetails)
     let calendarEvent = document.querySelectorAll('.day-square')
 
     calendarEvent.forEach(element => {
+        // Element is the calendar event content, should be loaded in Django, which can then be accessed here with JS
         element.addEventListener('click', () => {
-            console.log(element.innerText.split('\n')[2]) // Element text is 1)Date, 2)\n, 3)Actual event content, splitting on \n gives an array
+            eventDetailsModal.style.display = 'block';
+            createEventDetails(eventDetails, eventDetailsModal, element)
+            eventDetailsModal.appendChild(eventDetails)
+            // console.log(element.innerText.split('\n')[2]) // Element text is 1)Date, 2)\n, 3)Actual event content, splitting on \n gives an array
         })
     })
 }
 
+function createEventDetails(detailModal, eventDetailsModal, details) {
+    const eventTitle = document.createElement('h3');
+    const eventContent = document.createElement('p')
+    const eventImage = document.createElement('img')
+    // const closeModal = document.createElement('img') // X for closing the modal
+    const closeModalBtn = document.createElement('h1')
+    // Test info
+    eventTitle.innerText = details.innerText.split('\n')[2]
+    eventContent.innerText = 'Join us for some random fun event that is mostly used as a test to see if modal works!'
+    closeModalBtn.innerText = 'X'
+
+    detailModal.appendChild(eventTitle)
+    detailModal.appendChild(eventContent)
+    detailModal.appendChild(eventImage)
+    detailModal.appendChild(closeModalBtn)
+
+    closeModal(eventDetailsModal, closeModalBtn, detailModal)
+}
+
+function closeModal(detailModal, closeBtn, details) {
+    closeBtn.addEventListener('click', ()=> {
+        details.innerText = ''; // Clear out the details so they don't just stack on top everytime you click a calendar event
+        detailModal.style.display = 'none';
+    })
+}
 
 // When the calendar button is hit int he navbar, load the calendar and all it's functions
 calendarBtn.addEventListener('click', () => {
