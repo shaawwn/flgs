@@ -23,7 +23,6 @@
             <div id="navbar">
                 <h1 class="nav-item" name="home">Home</h1>
                 <h1 class="nav-item" name="calendar">Event Calendar</h1>
-                <h1 class="nav-item" name="shop">Shop</h1>
                 <h1 class="nav-item" name="contact">Contact</h1>
             </div>
             <hr>
@@ -32,7 +31,6 @@
                 <div id="post-container">
                     {% for post in posts %}
                         <div class="post">
-                           
                             <h1 class="post-title">{{ post.post_title }}</h1>
                             {% if post.post_image %}
                                 <img class="post-image" src='{{ post.post_image.url }}'>
@@ -58,9 +56,9 @@
                     <p>Friday</p>
                     <p>Saturday</p>
                 </div>
-            </div>
-            <div id="calendar-event-modal">
+                <div id="calendar-event-modal">
 
+                </div>
             </div>
 
             <div id="contact-container">
@@ -69,12 +67,10 @@
             </div>
         </div>
         <script>
-            let events = '{{ events|safe }}'
+            let events = "{{ events|safe }}"
+            let etest = JSON.parse(events)
         </script>
         <script src="{% static '/js/main.js' %}"></script>
-        <script src="{% static 'js/calendar.js' %}">
-
-
-        </script>
+        <script src="{% static 'js/calendar.js' %}"></script>
     </body>
 </html>

@@ -1,6 +1,7 @@
 console.log("Loading calendar...")
-event_object = JSON.parse(events)
-console.log(event_object.Random)
+// event_object = JSON.parse(events)
+console.log("EVENTS IN CALENDARJS", events)
+
 
 
 
@@ -87,8 +88,7 @@ function addCalendar() {
         paddingSquare.classList.add('day-square')
         if (i < paddingDays + 1) {
             // Add blank squares
-            // let paddingSquare = document.createElement('div');
-            // paddingSquare.classList.add('day-square')
+
             calendarDiv.appendChild(paddingSquare)
         } else if (i > daysInMonth + paddingDays) {
             calendarDiv.appendChild(paddingSquare)

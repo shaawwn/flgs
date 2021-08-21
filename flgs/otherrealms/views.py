@@ -9,7 +9,7 @@ def index(request):
     events = CalendarEvent.objects.all()
 
     events_dict = _event_to_json(events)
-
+    print(events_dict)
     image_links = ImageLink.objects.all()
     return render(request, 'otherrealms/index.html', {
         "posts": posts,
@@ -24,7 +24,6 @@ def _event_to_json(events):
     for event in events:
         events_dict[event.event_title] = []
         events_dict[event.event_title].append(event.event_content)
-
     return json.dumps(events_dict)
 
 

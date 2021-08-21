@@ -27,7 +27,7 @@ class ImageLink(models.Model):
 class CalendarEvent(models.Model):
     # Mini-posts to be added to the calendar
     event_title = models.CharField(max_length=64)
-    event_date = models.CharField(max_length=24, blank=True)
+    event_date = models.DateField(auto_now=False, auto_now_add=False)
     event_content = models.TextField(blank=True)
     event_image = models.ImageField(null=True, blank=True, upload_to="images/")
 
