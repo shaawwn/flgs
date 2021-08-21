@@ -23,6 +23,7 @@
             <div id="navbar">
                 <h1 class="nav-item" name="home">Home</h1>
                 <h1 class="nav-item" name="calendar">Event Calendar</h1>
+                <h1 class="nav-item" name="shop"><a href="#">Shop</a></h1>
                 <h1 class="nav-item" name="contact">Contact</h1>
             </div>
             <hr>
@@ -40,6 +41,7 @@
                     {% endfor %}
                 </div>
                 <div id="link-container">
+                    <!-- Links should probably be hardcoded in? -->
                     {% for image_link in image_links %}
                         <img class="link-image" src="{{ image_link.img.url }}">
                     {% endfor %}
@@ -56,9 +58,9 @@
                     <p>Friday</p>
                     <p>Saturday</p>
                 </div>
-                <div id="calendar-event-modal">
-
-                </div>
+                <!-- <div id="calendar-event-modal">
+                    <h1>Something here</h1>
+                </div> -->
             </div>
 
             <div id="contact-container">

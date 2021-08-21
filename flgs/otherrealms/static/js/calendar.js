@@ -74,30 +74,43 @@ function addCalendar() {
         day: 'numeric'
     })
 
+    // Getting events from python
+    let dateCompare = date.toLocaleDateString('en-us', {
+        year: 'numeric',
+        month: 'numeric',
+        day: 'numeric'
+    })
+    // addEventToCalendar(JSON.parse(events), dateCompare)
 
-    parsedEvents = JSON.parse(events)
-    console.log(parsedEvents)
-    let keys = Object.keys(parsedEvents)
-    console.log("KEYS", keys)
-    for (let i = 0; i < keys.length;i++) {
-        let eventDate = parsedEvents[keys[i]][1]
-        // console.log(parsedEvents[keys[i]][1])
-        console.log(eventDate, day)
-        const dateCompare = date.toLocaleDateString('en-us', {
-            year: 'numeric',
-            month: 'numeric',
-            day: 'numeric'
-        })
-        console.log("Date compare", dateCompare)
-    }
+    // parsedEvents = JSON.parse(events)
+    // console.log(parsedEvents)
+    // let keys = Object.keys(parsedEvents)
+    // console.log("KEYS", keys)
+    // for (let i = 0; i < keys.length;i++) {
+    //     let eventDate = parsedEvents[keys[i]][1]
+    //     // console.log(parsedEvents[keys[i]][1])
+    //     const dateCompare = date.toLocaleDateString('en-us', {
+    //         year: 'numeric',
+    //         month: 'numeric',
+    //         day: 'numeric'
+    //     })
+    //     console.log("KEYS:", month, dateCompare, parseInt(keys[i].split('/')[0]) - 1)
+
+    //     if (parseInt(keys[i].split('/')[0]) - 1 === month) {
+    //         console.log("CorrectMonth")
+    //     }
+    //     // console.log("Date compare", dateCompare.split('/')[1], eventDate.split('/')[1])
+
+    // }
+
+    // Change the key for events to equal the date
     // Match any events in the events ibject to calendar dates
 
     const paddingDays = days.indexOf(dateString.split(', ')[0]);
     console.log(dateString, daysInMonth, paddingDays)
-    
+
     const calendarDiv = document.createElement('div')
     calendarDiv.setAttribute('id', 'calendar-main')
-
 
     for (let i = 1; i < 36; i++) {
 
@@ -110,12 +123,17 @@ function addCalendar() {
         } else if (i > daysInMonth + paddingDays) {
             calendarDiv.appendChild(paddingSquare)
         } else {
-            // Add corret dates for the current month
+            // Add correct dates for the current month
+            // Need to get formatted datestring for current square (ex. 8/15/2021)
             let daySquare = document.createElement('div');
             let day = document.createElement('p')
             let event = document.createElement('p')
             event.classList.add('calendar-event')
             day.innerText = i - paddingDays
+
+            // Add events if event for the day
+            let dayDate = String(month + 1) + '/' + day.innerText + '/' + String(year)
+            addEventToCalendar(JSON.parse(events), dayDate, event)
             // event.innerText = "event" // This should be whatever content the event is from the event model
 
             daySquare.appendChild(day)
@@ -132,20 +150,39 @@ function addCalendar() {
     calendarCon.appendChild(calendarDiv)
 }
 
-function addEventToCalendar(eventsDict, calendar) {
+function addEventToCalendar(eventsDict, date, event) {
     // Add events to the calendar using the events dictionary
+    // Event keys are dates, as such need to match up correctly with month/year of current calendar
+    // JS formats dates as '8/15/2021', no leading 0 on months
+    let keys = Object.keys(eventsDict)
+    // console.log("Indexing into dictionary", eventsDict[date])
+    for (i = 0; i < keys.length;i++) {
+        // console.log(keys[i], date)
+        if (keys[i] === date) {
+            // console.log("Dates match", keys[i], date)
+            event.innerText = eventsDict[date][0]
 
+        }
+    }
+    
+    // Match Events with current month(accounting for year, although it's probably safe to just delete events when the next
+    // month begins) Month variable in events dict should be month - 1 to match up with how JS does months (Jan = index 0)
+
+
+    // Match dates on the calendar with correct event dates
 }
 
 // Modal functions for adding event model when user clicks
 // on an event in the calendar
 function addEventModal() {
-    const eventDetailsModal = document.getElementById('calendar-event-modal')
+    // const eventDetailsModal = document.getElementById('calendar-event-modal')
+
+    const eventDetailsModal = document.createElement('div')
+    eventDetailsModal.setAttribute('id', 'calendar-event-modal')
+
     let eventDetails = document.createElement('div')
     eventDetails.classList.add('event-details')
     
-    // createEventDetails(eventDetails)
-    // eventDetailsModal.appendChild(eventDetails)
     let calendarEvent = document.querySelectorAll('.day-square')
 
     calendarEvent.forEach(element => {
@@ -157,14 +194,17 @@ function addEventModal() {
             // console.log(element.innerText.split('\n')[2]) // Element text is 1)Date, 2)\n, 3)Actual event content, splitting on \n gives an array
         })
     })
+
+    calendarCon.appendChild(eventDetailsModal)
 }
 
 function createEventDetails(detailModal, eventDetailsModal, details) {
     const eventTitle = document.createElement('h3');
     const eventContent = document.createElement('p')
     const eventImage = document.createElement('img')
-    // const closeModal = document.createElement('img') // X for closing the modal
     const closeModalBtn = document.createElement('h1')
+    closeModalBtn.classList.add('close-modal')
+
     // Test info
     eventTitle.innerText = details.innerText.split('\n')[2]
     eventContent.innerText = 'Join us for some random fun event that is mostly used as a test to see if modal works!'
@@ -191,3 +231,9 @@ calendarBtn.addEventListener('click', () => {
     addCalendar()
     addEventModal()
 })
+
+
+// Test events
+
+// parsedEvents = JSON.parse(events)
+// addEventToCalendar(parsedEvents, '08/21/2021')

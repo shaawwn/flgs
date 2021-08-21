@@ -23,11 +23,17 @@ def index(request):
 
 def _event_to_json(events):
     # Convert Django query set into something parseable by JSON
+    # Make the dates the keys
     events_dict = {}
     for event in events:
-        events_dict[event.event_title] = []
-        events_dict[event.event_title].append(event.event_content)
-        events_dict[event.event_title].append(event.event_date.strftime('%Y/%m/%d'))
+        key = event.event_date.strftime('%-m/%-d/%Y')
+        # events_dict[event.event_title] = []
+        # events_dict[event.event_title].append(event.event_content)
+        # events_dict[event.event_title].append(event.event_date.strftime('%m/%d/%Y'))
+
+        events_dict[key] = []
+        events_dict[key].append(event.event_title)
+        events_dict[key].append(event.event_content)
     return json.dumps(events_dict)
 
 
