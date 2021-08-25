@@ -2,9 +2,12 @@ from django.shortcuts import render
 from .models import Post, ImageLink, CalendarEvent
 import json
 from datetime import datetime
+# from django.core import serializers
+from django.http import JsonResponse
 
 now = datetime.now()
-print(type(now), now.strftime("%-m/%d/%Y"))
+# print(type(now), now.strftime("%-m/%d/%Y"))
+
 # Create your views here.
 def index(request):
     # Front page content, single page with home/calendar/contact info
@@ -12,7 +15,7 @@ def index(request):
     events = CalendarEvent.objects.all()
 
     events_dict = _event_to_json(events)
-    print(events_dict)
+    # print(events_dict)
     image_links = ImageLink.objects.all()
     return render(request, 'otherrealms/index.html', {
         "posts": posts,
@@ -26,10 +29,12 @@ def _event_to_json(events):
     # Make the dates the keys
     events_dict = {}
     for event in events:
+        
+        # Windows
+        # key = event.event_date.strftime('%#m/%#d/%Y')
+
+        # Mac
         key = event.event_date.strftime('%-m/%-d/%Y')
-        # events_dict[event.event_title] = []
-        # events_dict[event.event_title].append(event.event_content)
-        # events_dict[event.event_title].append(event.event_date.strftime('%m/%d/%Y'))
 
         events_dict[key] = []
         events_dict[key].append(event.event_title)
@@ -42,3 +47,22 @@ def addEvent(request):
     # pass
     print('filler')
 
+def get_event(request, date):
+    # Retrieve the event details for a given date
+    print("Getting event with serializer imported")
+    date = '08/01/2021'
+    print(date)
+    if request.method == 'GET':
+        print(f"Date in conditional {date}")
+        _event_date = datetime.strptime(date, '%m/%d/%Y')
+
+        event_details = CalendarEvent.objects.filter(
+            event_date = _event_date.date()
+            # event_date = date
+        )
+
+        for event in event_details:
+
+            print("Event: ", type(event), event.serialize())
+        print("Python loading event", event_details)
+        return JsonResponse(([event.serialize() for event in event_details]), safe=False)

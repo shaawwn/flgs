@@ -36,7 +36,7 @@ const months = [
 ]
 
 function addCalendarHeader(month) {
-
+    // Add headers for the calendar, Month, days of week
     const calendarHeader = document.createElement('div')
     const currentMonth = document.createElement('h1')
 
@@ -58,14 +58,15 @@ function addCalendarHeader(month) {
 }
 
 function addCalendar() {
+    // Create and populate the calendar and add it to the page
 
     // Get day, month, year date objects
     const day = date.getDate();
     const month = date.getMonth();
     const year = date.getFullYear();
 
-    const firstDay = new Date(year, month, 1);
-    const daysInMonth = new Date(year, month + 1, 0).getDate();
+    const firstDay = new Date(year, month, 1); // First day of month object
+    const daysInMonth = new Date(year, month + 1, 0).getDate(); // Get total days in month, 0 returns the last day in month
 
     const dateString = firstDay.toLocaleDateString('en-us', {
         weekday: 'long',
@@ -79,39 +80,18 @@ function addCalendar() {
         year: 'numeric',
         month: 'numeric',
         day: 'numeric'
-    })
-    // addEventToCalendar(JSON.parse(events), dateCompare)
-
-    // parsedEvents = JSON.parse(events)
-    // console.log(parsedEvents)
-    // let keys = Object.keys(parsedEvents)
-    // console.log("KEYS", keys)
-    // for (let i = 0; i < keys.length;i++) {
-    //     let eventDate = parsedEvents[keys[i]][1]
-    //     // console.log(parsedEvents[keys[i]][1])
-    //     const dateCompare = date.toLocaleDateString('en-us', {
-    //         year: 'numeric',
-    //         month: 'numeric',
-    //         day: 'numeric'
-    //     })
-    //     console.log("KEYS:", month, dateCompare, parseInt(keys[i].split('/')[0]) - 1)
-
-    //     if (parseInt(keys[i].split('/')[0]) - 1 === month) {
-    //         console.log("CorrectMonth")
-    //     }
-    //     // console.log("Date compare", dateCompare.split('/')[1], eventDate.split('/')[1])
-
-    // }
+    }).replaceAll('/', '_') // Replace the / with _ in datestring to make it compatible as a dynamic url
 
     // Change the key for events to equal the date
     // Match any events in the events ibject to calendar dates
 
     const paddingDays = days.indexOf(dateString.split(', ')[0]);
-    console.log(dateString, daysInMonth, paddingDays)
+    // console.log(dateString, daysInMonth, paddingDays)
 
     const calendarDiv = document.createElement('div')
     calendarDiv.setAttribute('id', 'calendar-main')
 
+    // Add squars to the calendar, adding numerical dates and event titles (if they exist)
     for (let i = 1; i < 36; i++) {
 
         let paddingSquare = document.createElement('div')
@@ -124,21 +104,21 @@ function addCalendar() {
             calendarDiv.appendChild(paddingSquare)
         } else {
             // Add correct dates for the current month
-            // Need to get formatted datestring for current square (ex. 8/15/2021)
             let daySquare = document.createElement('div');
-            let day = document.createElement('p')
-            let event = document.createElement('p')
-            event.classList.add('calendar-event')
+            let day = document.createElement('p') // Numerical date on the calendar
+            let eventTitle = document.createElement('p') // Event title on the calendar
+            eventTitle.classList.add('calendar-event')
             day.innerText = i - paddingDays
 
             // Add events if event for the day
             let dayDate = String(month + 1) + '/' + day.innerText + '/' + String(year)
-            addEventToCalendar(JSON.parse(events), dayDate, event)
+            addEventToCalendar(JSON.parse(events), dayDate, eventTitle)
             // event.innerText = "event" // This should be whatever content the event is from the event model
 
             daySquare.appendChild(day)
-            daySquare.appendChild(event)
+            daySquare.appendChild(eventTitle)
             daySquare.classList.add('day-square')
+            daySquare.setAttribute('data-date', dayDate)
 
             calendarDiv.appendChild(daySquare)
         }
@@ -150,17 +130,17 @@ function addCalendar() {
     calendarCon.appendChild(calendarDiv)
 }
 
-function addEventToCalendar(eventsDict, date, event) {
-    // Add events to the calendar using the events dictionary
+function addEventToCalendar(eventsDict, date, eventTitle) {
+    // Add event titles to the calendar using the events dictionary
     // Event keys are dates, as such need to match up correctly with month/year of current calendar
     // JS formats dates as '8/15/2021', no leading 0 on months
     let keys = Object.keys(eventsDict)
-    // console.log("Indexing into dictionary", eventsDict[date])
+
     for (i = 0; i < keys.length;i++) {
-        // console.log(keys[i], date)
+
         if (keys[i] === date) {
-            // console.log("Dates match", keys[i], date)
-            event.innerText = eventsDict[date][0]
+            console.log("Dates match", keys[i], date)
+            eventTitle.innerText = eventsDict[date][0]
 
         }
     }
@@ -172,10 +152,10 @@ function addEventToCalendar(eventsDict, date, event) {
     // Match dates on the calendar with correct event dates
 }
 
+
 // Modal functions for adding event model when user clicks
 // on an event in the calendar
 function addEventModal() {
-    // const eventDetailsModal = document.getElementById('calendar-event-modal')
 
     const eventDetailsModal = document.createElement('div')
     eventDetailsModal.setAttribute('id', 'calendar-event-modal')
@@ -185,6 +165,7 @@ function addEventModal() {
     
     let calendarEvent = document.querySelectorAll('.day-square')
 
+    // Make squares clickable and bring up a modal with the event details for that squares date
     calendarEvent.forEach(element => {
         // Element is the calendar event content, should be loaded in Django, which can then be accessed here with JS
         element.addEventListener('click', () => {
@@ -199,6 +180,8 @@ function addEventModal() {
 }
 
 function createEventDetails(detailModal, eventDetailsModal, details) {
+    // getEventDetails()
+
     const eventTitle = document.createElement('h3');
     const eventContent = document.createElement('p')
     const eventImage = document.createElement('img')
@@ -218,6 +201,28 @@ function createEventDetails(detailModal, eventDetailsModal, details) {
     closeModal(eventDetailsModal, closeModalBtn, detailModal)
 }
 
+function getEventDetails(date) {
+    // Make a request to the DB to get the event details for a given date
+    // Date is the key to the dicitionary with event details
+    
+    // Maybe get the event details response, and in this function, run the addtoModal() function with the events
+    // Since this function keeps returning undefined
+    fetch(`events/${date}`)
+    .then(response => response.json())
+    .then(eventArray => {
+        console.log("In promise", eventArray)
+        return eventArray
+        // if (events != undefined) {
+
+        //     // console.log("Events in promise", events)
+        //     return events
+        // }
+    })
+    .catch(error => console.log("No events for this day :( "))
+
+
+}
+
 function closeModal(detailModal, closeBtn, details) {
     closeBtn.addEventListener('click', ()=> {
         details.innerText = ''; // Clear out the details so they don't just stack on top everytime you click a calendar event
@@ -232,8 +237,13 @@ calendarBtn.addEventListener('click', () => {
     addEventModal()
 })
 
-
+// getEventDetails('8_1_2021')
 // Test events
+
+test = getEventDetails('8_1_2021')
+// console.log("Test fetch", test)
+console.log(test)
+
 
 // parsedEvents = JSON.parse(events)
 // addEventToCalendar(parsedEvents, '08/21/2021')

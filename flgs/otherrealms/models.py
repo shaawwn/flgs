@@ -31,6 +31,16 @@ class CalendarEvent(models.Model):
     event_content = models.TextField(blank=True)
     event_image = models.ImageField(null=True, blank=True, upload_to="images/")
 
+    def serialize(self):
+        return {
+            'id': self.id,
+            'title': self.event_title,
+            'date': self.event_date,
+            'content': self.event_content,
+            'image': str(self.event_image) # Images can't be serializd, so convert path to str
+        }
+
+
     def __str__(self):
         return self.event_title
 
