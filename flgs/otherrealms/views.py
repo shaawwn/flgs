@@ -50,8 +50,9 @@ def addEvent(request):
 def get_event(request, date):
     # Retrieve the event details for a given date
     print("Getting event with serializer imported")
-    date = '08/01/2021'
-    print(date)
+
+    date = date.replace('_', '/', 2)
+
     if request.method == 'GET':
         print(f"Date in conditional {date}")
         _event_date = datetime.strptime(date, '%m/%d/%Y')
