@@ -114,7 +114,8 @@ function addCalendar() {
 
             // Add events if event for the day
             let dayDate = String(month + 1) + '_' + day.innerText + '_' + String(year) // Change from _ to / to match python
-            addEventToCalendar(JSON.parse(events), dayDate, eventTitle)
+            addEventToCalendar(JSON.parse(events), dayDate, eventTitle, daySquare)
+            // daySquare.classList.add('event')
             // event.innerText = "event" // This should be whatever content the event is from the event model
 
             daySquare.appendChild(day)
@@ -133,7 +134,7 @@ function addCalendar() {
 }
 
 
-function addEventToCalendar(eventsDict, date, eventTitle) {
+function addEventToCalendar(eventsDict, date, eventTitle, daySquare) {
     // Add event titles to the calendar using the events dictionary
     // Event keys are dates, as such need to match up correctly with month/year of current calendar
     // JS formats dates as '8/15/2021', no leading 0 on months
@@ -145,6 +146,7 @@ function addEventToCalendar(eventsDict, date, eventTitle) {
         if (keys[i] === formattedDate) {
             // console.log("Dates match", keys[i], date)
             eventTitle.innerText = eventsDict[formattedDate][0]
+            daySquare.classList.add('event')
 
         }
     }
@@ -167,78 +169,6 @@ function addEventDetailListeners() {
     })
 }
 
-
-// addEventDetailListeners()
-
-
-// function addEventModal(eventsArray) {
-
-//     const eventDetailsModal = document.createElement('div')
-//     eventDetailsModal.setAttribute('id', 'calendar-event-modal')
-
-//     let eventDetails = document.createElement('div')
-//     eventDetails.classList.add('event-details')
-    
-//     let calendarEvent = document.querySelectorAll('.day-square')
-
-//     // Make squares clickable and bring up a modal with the event details for that squares date
-//     calendarEvent.forEach(element => {
-//         // Element is the calendar event content, should be loaded in Django, which can then be accessed here with JS
-//         element.addEventListener('click', () => {
-//             let eventDate = element.getAttribute('data-date')
-//             getEventDetails(eventDate)
-//             eventDetailsModal.style.display = 'block';
-//             createEventDetails(eventDetails, eventDetailsModal, element)
-//             eventDetailsModal.appendChild(eventDetails)
-//             // console.log(element.innerText.split('\n')[2]) // Element text is 1)Date, 2)\n, 3)Actual event content, splitting on \n gives an array
-//         })
-//     })
-
-//     calendarCon.appendChild(eventDetailsModal)
-// }
-
-
-// function createEventDetails(detailModal, eventDetailsModal, details) {
-//     // getEventDetails()
-
-//     const eventTitle = document.createElement('h3');
-//     const eventContent = document.createElement('p')
-//     const eventImage = document.createElement('img')
-//     const closeModalBtn = document.createElement('h1')
-//     closeModalBtn.classList.add('close-modal')
-
-//     // Test info
-//     eventTitle.innerText = details.innerText.split('\n')[2]
-//     eventContent.innerText = 'Join us for some random fun event that is mostly used as a test to see if modal works!'
-//     closeModalBtn.innerText = 'X'
-
-//     detailModal.appendChild(eventTitle)
-//     detailModal.appendChild(eventContent)
-//     detailModal.appendChild(eventImage)
-//     detailModal.appendChild(closeModalBtn)
-
-//     closeModal(eventDetailsModal, closeModalBtn, detailModal)
-// }
-
-// function getEventDetails(date) {
-//     // Make a request to the DB to get the event details for a given date
-//     // Date is the key to the dicitionary with event details
-    
-//     // Maybe get the event details response, and in this function, run the addtoModal() function with the events
-//     // Since this function keeps returning undefined
-//     console.log("Date in getDetails", date)
-//     fetch(`events/${date}`)
-//     .then(response => response.json())
-//     .then(eventArray => {
-//         console.log("In promise", eventArray,date)
-
-//         addEventModal(eventArray)
-
-//     })
-//     .catch(error => console.log("No events for this day :( or some internal error "))
-
-
-// }
 
 function closeModal(detailModal, closeBtn, details) {
     closeBtn.addEventListener('click', ()=> {
@@ -270,11 +200,9 @@ function createEventModal() {
     const eventDetailsModal = document.createElement('div')
     eventDetailsModal.setAttribute('id', 'calendar-event-modal')
 
-    // const eventDetailsContainer = document.createElement('div')
-    // eventDetailsContainer.classList.add('event-details')
-
-    let calendarEvents = document.querySelectorAll('.day-square')
-
+    // let calendarEvents = document.querySelectorAll('.day-square')
+    let calendarEvents = document.querySelectorAll('.event')
+    console.log("EVENT SQUARES", calendarEvents)
     calendarEvents.forEach(element => {
         element.addEventListener('click', () => {
             let eventDate = element.getAttribute('data-date')
@@ -353,7 +281,7 @@ calendarBtn.addEventListener('click', () => {
     addCalendar()
     // addEventModal() // Moving to inside getEventDetails()
     // addEventToCalendar(eventsDict)
-    addEventDetailListeners()
+    // addEventDetailListeners()
     createEventModal()
     // getEventDetails('8_1_2021')
 })
