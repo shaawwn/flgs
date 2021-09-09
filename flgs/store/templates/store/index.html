@@ -1,0 +1,62 @@
+{% extends 'store/store_template.html' %}
+{% load static %}
+
+{% block body %}
+    <div id="container-store-main">
+
+        <div class="store-specials scrollable">
+            <i class="fas fa-chevron-left fa-5x scroll-chevron"></i>
+            <div class="product-card card-sm">
+                <img src="{% static 'images/test_images/dndstarter.jpg' %}">
+            </div>
+            <div class="product-card card-sm">
+                <img src="{% static 'images/test_images/funko.jpg' %}">
+            </div>
+            <div class="product-card card-sm">
+                <img src="{% static 'images/test_images/gloomhaven.jpg' %}">
+            </div>
+            <div class="product-card card-sm">
+                <img src="{% static 'images/test_images/actioncomics.jpeg' %}">
+            </div>
+            <div class="product-card card-sm">
+                <img src="{% static 'images/test_images/spacemariners.jpg' %}">
+            </div>
+            <i class="fas fa-chevron-right fa-5x scroll-chevron"></i>
+        </div>
+
+        <div class="container-store product-container">
+            <!-- Make some example cards -->
+            <div class="product-card">
+                <img src="{% static 'images/test_images/dndstarter.jpg' %}">
+            </div>
+            <div class="product-card">
+                <img src="{% static 'images/test_images/actioncomics.jpeg' %}">
+            </div>
+            <div class="product-card">
+                <img src="{% static 'images/test_images/gloomhaven.jpg' %}">
+            </div>
+            <div class="product-card">
+                <img src="{% static 'images/test_images/spacemariners.jpg' %}">
+            </div>
+            <div class="product-card">
+                <img src="{% static 'images/test_images/funko.jpg' %}">
+            </div>
+            <div class="product-card">
+                <img src="{% static 'images/test_images/dndstarter.jpg' %}">
+            </div>
+            <div class="product-card">
+                <img src="{% static 'images/test_images/spacemariners.jpg' %}">
+            </div>
+            <div class="product-card">
+                <img src="{% static 'images/test_images/funko.jpg' %}">
+            </div>
+            <div class="product-card">
+                <img src="{% static 'images/test_images/gloomhaven.jpg' %}">
+            </div>
+            <div class="product-card">
+                <img src="{% static 'images/test_images/funko.jpg' %}">
+            </div>
+        </div>
+
+    </div>
+{% endblock %}

@@ -1,0 +1,151 @@
+html, body {
+    margin: 0px;
+}
+
+h1 {
+    color: white;
+}
+
+/* Main body */
+
+#store-container-main {
+    display:flex;
+}
+
+.btn {
+    border-radius: 5px;
+
+}
+
+#legal {
+    position: fixed;
+    /* bottom: 0xp; */
+    margin-bottom: 0px;
+    width: 100vw;
+    background-color:rgb(49, 71, 83);
+    text-align: center;
+}
+
+/* Navbar */
+#header-div {
+    display: flex;
+    position: relative;
+    width: 100%;
+    padding: 25px;
+    background-color:rgb(49, 71, 83)
+}
+
+.navbar-store-item {
+    height: 100px;
+}
+
+.header-item {
+    margin-left: 10px;
+    margin-right: 10px;
+}
+
+.header-image-container {
+    width: 150px;
+    padding: 10px;
+}
+.sm-img {
+    width: 100%;
+    height: auto;
+}
+
+.navbar-search-container {
+    position: relative;
+    display: flex;
+    width: 55vw;
+}
+
+.navbar-search {
+    display: flex;
+    position: absolute;
+    width: 95%;
+    height: 2rem;
+    border-radius: 5px;
+    margin-right: 0px;
+    margin-top: 10px;
+}
+
+.search-btn {
+    position: absolute;
+    right:0px;
+    width: 5%;
+    justify-content: center;
+    margin-left: 0px;
+}
+
+.header-user-container {
+    display: flex;
+    justify-content: flex-end;
+    /* position: absolute; */
+    width: 25vw;
+    padding: 0px;
+    margin-right: 5px;
+}
+
+.navbar-user {
+    font-size: 18px;
+    margin: 5px;
+    margin-top: 15px;
+    /* margin: 5px; */
+}
+
+.fa-shopping-cart {
+    margin-top: 20px;
+}
+#storefront-navbar {
+    display: flex;
+    justify-content: space-evenly;
+    background-color: rgb(49, 71, 83);
+    width: 100vw;
+}
+
+/* Nav-item shares with main.css */
+.nav-item {
+    margin-left: 30px;
+    margin-right: 30px;
+}
+
+/* Banner */
+#storefront-banner {
+    text-align: center;
+}
+
+/* Storefront cards/items */
+
+.store-specials {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    height: 250px;
+    background-color: rgba(0,0,0, 0.2)
+}
+
+.scroll-chevron {
+    margin: auto;
+}
+
+.scroll-chevron:hover {
+    color: grey;
+}
+.container-store {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+.product-card {
+    display: flex;
+    justify-content: center;
+    width: 200px;
+    height: 200px;
+    margin: 30px;
+    background-color: white;
+}
+
+.card-sm {
+    width: 150px;
+    height: 150px;
+}

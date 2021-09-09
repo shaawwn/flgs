@@ -1,0 +1,64 @@
+{% load static %}
+
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>Other Realms Web Store</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="{% static '/css/main.css' %}">
+        <link rel="stylesheet" href="{% static '/css/store/store.css' %}">
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.3/css/all.css" integrity="sha384-SZXxX4whJ79/gErwcOYf+zWLeJdY/qpuqC4cAa9rOGUstPomtqpuNWT9wdPEn2fk" crossorigin="anonymous">
+
+    </head>
+    <body>
+
+        <div id="header-div">
+            <div class="header-image-container">
+                <a href="{% url 'index' %}"><img src="{% static '/images/banner.png' %}" class='header-item sm-img'></a>
+            </div>
+            <!-- <img src="{% static '/images/banner.png' %}" class=' header-item sm-img'> -->
+            <div class="header-item navbar-search-container">
+                <input class="header-item navbar-search" type="search"> 
+                <input class="navbar-search btn search-btn" type="submit" value="?">   
+            </div>
+            <div class="header-user-container">
+                <h3 class="header-item navbar-user">Hello, user</h3>
+                <i class="header-item fas fa-shopping-cart fa-lg"></i>
+                <!-- https://fontawesome.com/v5.15/icons/shopping-cart -->
+
+            </div>
+        </div>
+        
+        <div id="storefront-banner">
+            <div id="banner">
+                <div id="banner-container">
+                    <img id="gunther-banner" src="{% static 'images/gunther_invis.png' %}">
+                    <img id='banner-name' src="{% static 'images/banner.png' %}">
+                </div>
+            </div>
+        </div>
+
+        <div id="storefront-navbar">
+            <h3 class="nav-item">Comics</h4>
+            <h3 class="nav-item">Games</h4>
+            <h3 class="nav-item">Collectibles</h4>
+            <h3 class="nav-item">Wargaming</h4>
+            <h3 class="nav-item">Merchandise</h4>
+        </div>
+
+        <div id="storefront-container-main">
+
+        </div>
+        {% block body %}
+        {% endblock %}
+
+        <div id="legal">
+            <p>Some legal text</p>
+        </div>
+        <script src="{% static '/js/store/storefront.js' %}"></script>
+    </body>
+</html>

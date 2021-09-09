@@ -1,0 +1,13 @@
+{
+	"folders": [
+		{
+			"path": "../../../../../../../Practice/js_calendar"
+		},
+		{
+			"path": "../../.."
+		}
+	],
+	"settings": {
+		"liveServer.settings.multiRootWorkspaceName": "flgs"
+	}
+}
