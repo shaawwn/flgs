@@ -109,14 +109,15 @@ function addCalendar() {
             let daySquare = document.createElement('div');
             let day = document.createElement('p') // Numerical date on the calendar
             let eventTitle = document.createElement('p') // Event title on the calendar
+            let eventDate = document.createElement('p')
             eventTitle.classList.add('calendar-event')
+            eventDate.classList.add('calendar-event-date')
+
             day.innerText = i - paddingDays
 
             // Add events if event for the day
             let dayDate = String(month + 1) + '_' + day.innerText + '_' + String(year) // Change from _ to / to match python
-            addEventToCalendar(JSON.parse(events), dayDate, eventTitle, daySquare)
-            // daySquare.classList.add('event')
-            // event.innerText = "event" // This should be whatever content the event is from the event model
+            addEventToCalendar(JSON.parse(events), dayDate, eventTitle, daySquare, eventDate)
 
             daySquare.appendChild(day)
             daySquare.appendChild(eventTitle)
@@ -134,7 +135,7 @@ function addCalendar() {
 }
 
 
-function addEventToCalendar(eventsDict, date, eventTitle, daySquare) {
+function addEventToCalendar(eventsDict, date, eventTitle, daySquare, eventDate) {
     // Add event titles to the calendar using the events dictionary
     // Event keys are dates, as such need to match up correctly with month/year of current calendar
     // JS formats dates as '8/15/2021', no leading 0 on months
@@ -144,29 +145,21 @@ function addEventToCalendar(eventsDict, date, eventTitle, daySquare) {
     for (i = 0; i < keys.length;i++) {
 
         if (keys[i] === formattedDate) {
-            // console.log("Dates match", keys[i], date)
-            eventTitle.innerText = eventsDict[formattedDate][0]
+
+            if (eventsDict[formattedDate][2] != null) { //If there is an image associated with event, use on calendar instead of text title
+                let eventImageSm = document.createElement('img')
+                eventImageSm.classList.add('event-image')
+                eventImageSm.setAttribute('src', eventsDict[formattedDate][2])
+                eventTitle.appendChild(eventImageSm)
+            } else {
+                console.log(eventsDict, keys[i])
+                eventTitle.innerText = eventsDict[formattedDate][0]
+                // eventDate.innerText = keys[i]
+            }
+
             daySquare.classList.add('event')
-
         }
-    }
-    
-}
-
-
-function addEventDetailListeners() {
-    // Add event listeners to each calendar square to bring up event detail modal
-    let calendarEvent = document.querySelectorAll('.day-square')
-
-    calendarEvent.forEach(element => {
-        console.log("Adding listeners")
-        element.addEventListener('click', () => {
-            console.log("CALENDAR ELEMENT", element)
-            // eventDetailsModal.style.display = 'block';
-            // createEventDetails(eventDetails, eventDetailModal, element)
-            // eventDetailsModal.appendChild(eventDetails)
-        })
-    })
+    }    
 }
 
 
@@ -175,17 +168,6 @@ function closeModal(detailModal, closeBtn, details) {
         details.innerText = ''; // Clear out the details so they don't just stack on top everytime you click a calendar event
         detailModal.style.display = 'none';
     })
-}
-
-
-
-
-// Rewritten functions for modal down here V
-function eventModalMain() {
-    // Group the getEvent and modal functions here into one function
-    console.log("Modal Main")
-    createEventModal()
-
 }
 
 
@@ -202,7 +184,6 @@ function createEventModal() {
 
     // let calendarEvents = document.querySelectorAll('.day-square')
     let calendarEvents = document.querySelectorAll('.event')
-    console.log("EVENT SQUARES", calendarEvents)
     calendarEvents.forEach(element => {
         element.addEventListener('click', () => {
             let eventDate = element.getAttribute('data-date')
@@ -210,7 +191,6 @@ function createEventModal() {
 
             addEventDetailsToModal(eventDetails)
             eventDetailsModal.style.display = 'block';
-            // eventDetailsModal.appendChild(eventDetailsContainer)
         })
     })
 
@@ -218,11 +198,11 @@ function createEventModal() {
 }
 
 
-
 function addEventDetailsToModal(eventDetails) {
     // Add the event details the event details to the modal
     // eventDetails is a promise (hopefully fulfilled)
-
+    let calendarEventModal = document.getElementById('calendar-event-modal')
+    calendarEventModal.innerHTML = ''; // This clears out the HTML for the event modal so it stops stacking everytime you click
     let eventDetailsContainer = document.createElement('div')
     eventDetailsContainer.classList.add('event-details')
 
@@ -241,22 +221,24 @@ function createEventDetails(detailModal, details) {
 
     // Test info
     for (let i = 0; i < details.length;i++) {
-
+        console.log("MODAL DATE", details[i].date, months[details[i].date[6] - 1])
         const eventTitle = document.createElement('h3');
+        const eventDate = document.createElement('p')
         const eventContent = document.createElement('p')
         const eventImage = document.createElement('img')
-        // const closeModalBtn = document.createElement('h1')
-        // closeModalBtn.classList.add('close-modal')
 
-        // eventTitle.innerText = details[i].innerText.split('\n')[2]
+        let eventMonth = months[details[i].date[6] - 1]
+        let eventDayDate = details[i].date[8] + details[i].date[9]
+        eventTitle.classList.add('event-detail-title');
+        eventDate.classList.add('calendar-event-date')
         eventTitle.innerText= details[i].title
-        eventContent.innerText = 'Join us for some random fun event that is mostly used as a test to see if modal works!'
-        // closeModalBtn.innerText = 'X'
+        eventDate.innerText = "6pm - 9pm," + eventMonth + ' ' +  eventDayDate
+        eventContent.innerText = details[i].content
 
         detailModal.appendChild(eventTitle)
+        detailModal.appendChild(eventDate)
         detailModal.appendChild(eventContent)
         detailModal.appendChild(eventImage)
-        // detailModal.appendChild(closeModalBtn)
 
         // eventDetailsModal is the whole modal, not jsut details, close to bnring back the calendar
         let eventDetailsModal = document.getElementById('calendar-event-modal')
@@ -268,7 +250,6 @@ function createEventDetails(detailModal, details) {
             detailModal.appendChild(closeModalBtn)
             closeModal(eventDetailsModal, closeModalBtn, detailModal)
         }
-        // closeModal(eventDetailsModal, closeModalBtn, detailModal)
 
         eventDetailsModal.appendChild(detailModal)
     }
@@ -279,10 +260,6 @@ function createEventDetails(detailModal, details) {
 calendarBtn.addEventListener('click', () => {
     calendarCon.innerHTML = ''
     addCalendar()
-    // addEventModal() // Moving to inside getEventDetails()
-    // addEventToCalendar(eventsDict)
-    // addEventDetailListeners()
     createEventModal()
-    // getEventDetails('8_1_2021')
 })
 

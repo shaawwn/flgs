@@ -19,14 +19,15 @@
                     <img id='banner-name' src="{% static 'images/banner.png' %}">
                 </div>
             </div>
-            <hr>
+
             <div id="navbar">
                 <h1 class="nav-item" name="home">Home</h1>
                 <h1 class="nav-item" name="calendar">Event Calendar</h1>
-                <h1 class="nav-item" name="shop"><a href="#">Shop</a></h1>
+                <h1 class="nav-item" name="shop"><a href="{% url 'store:index' %}">Shop</a></h1>
+                <h1 class="nav-item" name="about"><a href="#">About</a></h1>
                 <h1 class="nav-item" name="contact">Contact</h1>
             </div>
-            <hr>
+            <br>
 
             <div id="content-container">
                 <div id="post-container">
@@ -58,9 +59,10 @@
                     <p>Friday</p>
                     <p>Saturday</p>
                 </div>
-                <!-- <div id="calendar-event-modal">
-                    <h1>Something here</h1>
-                </div> -->
+            </div>
+
+            <div id="about-container">
+                <h1>About Us!</h1>
             </div>
 
             <div id="contact-container">

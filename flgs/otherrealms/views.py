@@ -39,6 +39,16 @@ def _event_to_json(events):
         events_dict[key] = []
         events_dict[key].append(event.event_title)
         events_dict[key].append(event.event_content)
+
+
+        # events_dict[key].append(event.event_image.url)
+        print("EVENT IMAGE", event)
+        try:
+            events_dict[key].append(event.event_image.url)
+        except ValueError:
+            print("No image associated with post")
+            events_dict[key].append(None)
+            continue
     return json.dumps(events_dict)
 
 
