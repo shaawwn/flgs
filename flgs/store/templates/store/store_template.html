@@ -18,7 +18,7 @@
 
         <div id="header-div">
             <div class="header-image-container">
-                <a href="{% url 'index' %}"><img src="{% static '/images/banner.png' %}" class='header-item sm-img'></a>
+                <a href="{% url 'index' %}"><img src="{% static '/images/banner.png' %}" class='header-item sm-img-header'></a>
             </div>
             <!-- <img src="{% static '/images/banner.png' %}" class=' header-item sm-img'> -->
             <div class="header-item navbar-search-container">
@@ -43,11 +43,12 @@
         </div>
 
         <div id="storefront-navbar">
-            <h3 class="nav-item">Comics</h4>
-            <h3 class="nav-item">Games</h4>
-            <h3 class="nav-item">Collectibles</h4>
-            <h3 class="nav-item">Wargaming</h4>
-            <h3 class="nav-item">Merchandise</h4>
+            <a href="{% url 'store:index' %}"><h3 class="nav-item">Storefront</h3></a>
+            <a href="{% url 'store:category_page' 'Comics' %}"><h3 class="nav-item">Comics</h3></a>
+            <a href="{% url 'store:category_page' 'Games' %}"><h3 class="nav-item">Games</h3></a>
+            <a href="{% url 'store:category_page' 'Collectibles' %}"><h3 class="nav-item">Collectibles</h3></a>
+            <a href="{% url 'store:category_page' 'Wargaming' %}"><h3 class="nav-item">Wargaming</h3></a>
+            <a href="{% url 'store:category_page' 'Merchandise' %}"><h3 class="nav-item">Merchandise</h3></a>
         </div>
 
         <div id="storefront-container-main">

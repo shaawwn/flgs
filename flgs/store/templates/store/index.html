@@ -5,57 +5,45 @@
     <div id="container-store-main">
 
         <div class="store-specials scrollable">
+            
             <i class="fas fa-chevron-left fa-5x scroll-chevron"></i>
-            <div class="product-card card-sm">
-                <img src="{% static 'images/test_images/dndstarter.jpg' %}">
+
+            {% for product in products %}
+            <div class="product-card special-card" data-product-name="{{ product.name }}">
+                <img class="sm-img" src="{{ product.image.url }}">
+                <p>{{ product.name }}</p>
             </div>
-            <div class="product-card card-sm">
-                <img src="{% static 'images/test_images/funko.jpg' %}">
-            </div>
-            <div class="product-card card-sm">
-                <img src="{% static 'images/test_images/gloomhaven.jpg' %}">
-            </div>
-            <div class="product-card card-sm">
-                <img src="{% static 'images/test_images/actioncomics.jpeg' %}">
-            </div>
-            <div class="product-card card-sm">
-                <img src="{% static 'images/test_images/spacemariners.jpg' %}">
-            </div>
+
+            {% endfor %}
             <i class="fas fa-chevron-right fa-5x scroll-chevron"></i>
         </div>
 
         <div class="container-store product-container">
             <!-- Make some example cards -->
-            <div class="product-card">
-                <img src="{% static 'images/test_images/dndstarter.jpg' %}">
-            </div>
-            <div class="product-card">
-                <img src="{% static 'images/test_images/actioncomics.jpeg' %}">
-            </div>
-            <div class="product-card">
-                <img src="{% static 'images/test_images/gloomhaven.jpg' %}">
-            </div>
-            <div class="product-card">
-                <img src="{% static 'images/test_images/spacemariners.jpg' %}">
-            </div>
-            <div class="product-card">
-                <img src="{% static 'images/test_images/funko.jpg' %}">
-            </div>
-            <div class="product-card">
-                <img src="{% static 'images/test_images/dndstarter.jpg' %}">
-            </div>
-            <div class="product-card">
-                <img src="{% static 'images/test_images/spacemariners.jpg' %}">
-            </div>
-            <div class="product-card">
-                <img src="{% static 'images/test_images/funko.jpg' %}">
-            </div>
-            <div class="product-card">
-                <img src="{% static 'images/test_images/gloomhaven.jpg' %}">
-            </div>
-            <div class="product-card">
-                <img src="{% static 'images/test_images/funko.jpg' %}">
-            </div>
+            <!-- <div class="product-card">
+                <img class="product-card-image" src="{% static 'images/test_images/dndstarter.jpg' %}">
+                <p>DND Starter Set</p>
+                <p>In stock</p>
+                <p>$19.99</p>
+            </div> -->
+            {% for product in products %}
+            <a href="{% url 'store:product_page' product.name %}" data-product-id='{{ product.name }}'>
+                <div class="product-card" data-product-name="{{ product.name }}">
+                    <img class="product-card-image" src="{{ product.image.url }}">
+                    <p>{{ product.name }}</p>
+
+                    {% if product.availability < 1 %}
+                        <p>Out of stock</p>
+                    {% elif product.availability >= 10 %}
+                        <p>In stock</p>
+                    {% elif product.availability < 10 %}
+                        <p>{{ product.availability }} left in stock</p>
+                    {% endif %}
+                    <p>${{ product.price }}</p>
+                </div>
+            </a>
+            {% endfor %}
+
         </div>
 
     </div>
