@@ -11,6 +11,10 @@ h1 {
     border: 2px solid red;
     background-color: green;
 }
+
+.error-message {
+    color: red;
+}
 /* Main body */
 
 #store-container-main {
@@ -121,6 +125,40 @@ h1 {
     text-align: center;
 }
 
+
+/* Login/Registration */
+
+.login-registration {
+    display: flex;
+    flex-direction: column;
+    margin: auto;
+    background-color: white;
+    color: black;
+    width: 50%;
+    height: 70%;
+    text-align: center;
+    padding: 20px;
+    align-items: center;
+    border-radius: 2px;
+}
+
+.login-input {
+    /* line-height: 3rem; */
+    /* margin: auto; */
+    margin-top: 15px;
+    width: 70%;
+    font-size: 28px;
+}
+
+.login-submit {
+    margin-top: 15px;
+    border-radius: 5px;
+    background-color:rgb(71, 141, 212);
+    font-size: 24px;
+    color: white;
+    width: 30%;
+    height: 50px;
+}
 /* Storefront cards/items */
 
 .store-specials {

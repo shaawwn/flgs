@@ -26,14 +26,20 @@
                 <input class="navbar-search btn search-btn" type="submit" value="?">   
             </div>
             <div class="header-user-container">
-                <h3 class="header-item navbar-user">Hello, user</h3>
+                {% if user.is_authenticated %}
+                    Hello, <strong>{{ user.username }}</strong>
+                    <a href="{% url 'store:logout' %}"><h3 class="header-item navbar-user">Logout</h3></a>
+                {% else %}
+                    <a href="{% url 'store:login' %}"><h3 class="header-item navbar-user">Login</h3></a>
+                {% endif %}
+                <!-- <a href="{% url 'store:login' %}"><h3 class="header-item navbar-user">Login</h3></a> -->
                 <i class="header-item fas fa-shopping-cart fa-lg"></i>
                 <!-- https://fontawesome.com/v5.15/icons/shopping-cart -->
 
             </div>
         </div>
         
-        <div id="storefront-banner">
+            <div id="storefront-banner">
             <div id="banner">
                 <div id="banner-container">
                     <img id="gunther-banner" src="{% static 'images/gunther_invis.png' %}">
