@@ -74,17 +74,44 @@ class Order(models.Model):
     """Model for holding a user's order information, can be archived by setting completed=True
     Can be used for a User's Shopping Cart?
     """
-    # order_user
-    # order_number
-    # order_products
-    # order_price
-    # order_num_items
+    # order_number (I think this will be assigned automatically)
+    order_user = models.ForeignKey(User, default=None, on_delete=models.CASCADE)
+    order_products = models.ForeignKey(ProductModel, null=True, default=None, on_delete=models.CASCADE, related_name="products")
+    order_num_items = models.IntegerField(default=0)
+    order_price = models.DecimalField(default=0, max_digits=9, decimal_places=2)
+    shopping_cart = models.BooleanField(default=False)
 
-    pass
+
+class OrderItem(models.Model):
+    """An item in an order, inherits from ProductModel but includes additional details
+    such as the number of items in the order, and the combined price"""
+    order = models.ForeignKey(Order, on_delete=models.CASCADE, blank=True, default=None, related_name="customer_order")
+    item = models.ForeignKey(ProductModel, on_delete=models.CASCADE, related_name="order_item")
+    quantity = models.IntegerField(default=0)
+
+
+# class CartItem(models.Model):
+#     """Shopping cart items, differs slightly from order items in that they just populate a shopping cart
+#     """
+#     shopping_cart = models.ForeignKey(ShoppingCart, on_delete=models.CASCADE, blank=True, default=None, related_name="cart_items")
+#     quantity = models.IntegerField(default=0)
+#     item = models.ForeignKey(ProductModel, default=None, on_delete=models.CASCADE, related_name="item")
 
 class ShoppingCart(models.Model):
     """User shopping cart, potentiallyi inherits from Order"""
-    pass
+    # user = models.ForeignKey(User, default=None, on_delete=models.CASCADE)
+    user = models.OneToOneField(User, null=True, default=None, on_delete=models.CASCADE)
+    # cart_items = models.ForeignKey(CartItem, null=True, default=None, on_delete=models.CASCADE, related_name="cart_item")
+    # products = models.ForeignKey(ProductModel, default=0, on_delete=models.CASCADE)
+    # products = models.ManyToManyField(ProductModel, related_name="cart_products")
+    
+
+class CartItem(models.Model):
+    """Shopping cart items, differs slightly from order items in that they just populate a shopping cart
+    """
+    shopping_cart = models.ForeignKey(ShoppingCart, on_delete=models.CASCADE, blank=True, null=True, related_name="cart_items")
+    quantity = models.IntegerField(default=0)
+    item = models.ForeignKey(ProductModel, default=None, on_delete=models.CASCADE, related_name="item")
 
 class WishList(models.Model):
     """A user's wishlist"""

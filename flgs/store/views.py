@@ -4,7 +4,21 @@ from django.contrib.auth.decorators import login_required
 from django.shortcuts import render
 from django.http import HttpResponse, HttpResponseRedirect
 from django.urls import reverse
-from .models import User, CategoryModel, ProductModel
+import re
+from .models import User, CategoryModel, ProductModel, ShoppingCart, Order, CartItem
+import time
+
+# Helpers
+
+def check_valid_email(email):
+    """Check if an entered email is a valid formatted email (example@example.com)"""
+    email_re = r'\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Z|a-z]{2,}\b'
+
+    if re.fullmatch(email_re, email):
+        return True
+    else:
+        return False
+
 
 # Create your views here.
 def index(request):
@@ -56,8 +70,8 @@ def login(request):
 def logout(request):
     """Confirm logout page"""
     auth_logout(request)
-    return HttpResponseRedirect(reverse('store:index'))
-    # return render(request, 'store/logout.html')
+    # return HttpResponseRedirect(reverse('store:index'))
+    return render(request, 'store/logout.html')
 
 
 def register(request):
@@ -65,21 +79,29 @@ def register(request):
 
     if request.method=="POST":
         print("Registration working") # No password is being created
-        username= request.POST['username']
+        # username= request.POST['username']
         email = request.POST['username']
         password = request.POST['password']
         confirm = request.POST['confirm-password']
 
+        if not check_valid_email(email):
+            return render(request, 'store/register.html', {
+                "message": "Please enter a valid email address"
+            })
         if password != confirm:
             return render(request, 'store/register.html', {
                 "message": "Passwords do not match."
             })
 
         try:
-            user = User.objects.create_user(username, email, password)
+            # Check for existing email
+            user = User.objects.create_user(email, email, password)
             user.save()
         except IntegrityError:
-            return render(request, 'store/register.html')
+            error = 'An account with this email already exists.'
+            return render(request, 'store/register.html', {
+                'message': error
+            })
         # print("CREDS", email, password, confirm)
         # print(email, password)
 
@@ -87,6 +109,29 @@ def register(request):
         return HttpResponseRedirect(reverse('store:index'))
     return render(request, 'store/register.html')
 
+# ------------------------------- USER ACCOUNT VIEWS -------
+def account_page(request, user):
+    """User account page"""
+
+    current_order = True
+    return render(request, 'store/account.html', {
+        "current_order": current_order,
+    })
+
+
+def load_current_order(request):
+    '''
+    If customer has outstanding orders, load them here
+    '''
+    pass
+
+def load_recent_orders(request):
+    '''
+    Load recent orders (maybe selectable by time frame, ie 'In last 6 months')
+    '''
+    pass
+
+# -----------------------------PRODUCT VIEWS ---------------
 # Functions for Loading Product Page
 def product_page(request, product):
     '''Return the product page'''
@@ -127,11 +172,86 @@ def category_page(request, category):
     return render(request, 'store/category.html')
 
 
+def add_to_cart(request, product):
+    '''Add a product to a user's shopping car
+    shopping_cart.cart_items == Order object
+    '''
+    # if request.method == 'POST':
+    #     print("USER:", request.user, product)
+    #     product_obj = ProductModel.objects.get(name=product)
+    #     user = User.objects.get(username=request.user)
+    #     print("USER AFTER", user, user.id)
+
+    #     try:
+    #         print("TRY")
+    #         shopping_cart = ShoppingCart.objects.get(user_id=user)
+    #     except:
+    #         print("EXCEPT")
+    #         shopping_cart = ShoppingCart(user=user)
+    #         shopping_cart.save()
+    #     shopping_cart.products.add(product_obj)
+    #     shopping_cart.save()
+
+    if request.method == 'POST':
+        product_obj = ProductModel.objects.get(name=product)
+        user = User.objects.get(username=request.user)
+        # cart_item = CartItem(shopping_cart=shopping_cart.objects.get(user=user), quantity=1, item=product_obj)
+
+
+
+        try:
+            print("TRY")
+            # If the cart exists, create variables to use
+            shopping_cart = ShoppingCart.objects.get(user=user)
+            # user_order = Order.objects.get(order_user=user)
+            # shopping_cart.cart_items.shopping_cart = True
+            # user_order.shopping_cart = True
+            # shopping_cart.cart_items = user_order
+            shopping_cart.save()
+        except:
+            print("EXCEPT")
+            # If cart doesn't exist, initialize
+            shopping_cart = ShoppingCart(user=user)
+            print("SHOPPING CART", shopping_cart)
+            # user_order = Order(order_user=user)
+            # user_order.shopping_cart = True
+            # user_order.save()
+
+            # shopping_cart.cart_items = user_order
+            shopping_cart.save()
+        print("OUTSIDE TRY/EXCEPT", shopping_cart)
+        add_item = CartItem(quantity=1, item=product_obj)
+        add_item.save()
+        # add_item.quantity = 1
+        print("CART ITEM CREATED", add_item.item)
+        # add_item.item.add(product_obj)
+        shopping_cart.cart_items.add(add_item)
+        print("ADDING ITEM")
+        shopping_cart.save()
+        for item in shopping_cart.cart_items.all():
+            print(item.item)
+    return HttpResponseRedirect(reverse('store:product_page', args=[product]))
+
+
+def cart(request, username):
+    """Load user's shopping cart, if any"""
+    user = User.objects.get(username=username)
+    shopping_cart = ShoppingCart.objects.get(user=user)
+
+    cart = shopping_cart.cart_items.all()
+    for prod in shopping_cart.cart_items.all():
+        print(prod.item.name)
+    return render(request, 'store/cart.html', {
+        "cart": cart,
+    })
+
 def error_page(request):
     """Returns an error Not Found page for broken links"""
     return render(request, 'store/not_found.html')
 
 
+
+# Helpers
 
 # Tests
 

@@ -27,13 +27,14 @@
             </div>
             <div class="header-user-container">
                 {% if user.is_authenticated %}
-                    Hello, <strong>{{ user.username }}</strong>
+                    <a href="{% url 'store:account_page' user.username %}"><h3 class="header-item navbar-user">{{ user.username }}</h3></a>
                     <a href="{% url 'store:logout' %}"><h3 class="header-item navbar-user">Logout</h3></a>
+                    <a href="{% url 'store:shopping_cart' user.username %}"><i class="header-item fas fa-shopping-cart fa-lg navbar-user"></i></a>
                 {% else %}
                     <a href="{% url 'store:login' %}"><h3 class="header-item navbar-user">Login</h3></a>
                 {% endif %}
                 <!-- <a href="{% url 'store:login' %}"><h3 class="header-item navbar-user">Login</h3></a> -->
-                <i class="header-item fas fa-shopping-cart fa-lg"></i>
+                <!-- <i class="header-item fas fa-shopping-cart fa-lg navbar-user"></i> -->
                 <!-- https://fontawesome.com/v5.15/icons/shopping-cart -->
 
             </div>
@@ -67,5 +68,7 @@
             <p>Some legal text</p>
         </div>
         <script src="{% static '/js/store/storefront.js' %}"></script>
+        {% block script %}
+        {% endblock %}
     </body>
 </html>

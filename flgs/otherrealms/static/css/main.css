@@ -17,7 +17,8 @@ hr {
 
 a {
     text-decoration: none;
-    color:rgb(183, 193, 208);
+    /* color:rgb(183, 193, 208); */
+    color: rgb(103, 143, 202);
 }
 
 a:hover {

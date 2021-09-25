@@ -30,8 +30,15 @@
                     <p class="product-price">{{ product.price }}</p>
                 </div>
                 <div class="product-btn-div">
-                    <button class="product-btn btn">Add to Cart</button>
-                    <button class="product-btn btn">Add to Wishlist</button>
+                    <form action="{% url 'store:add_to_cart' product.name %}" method="post">
+                        {% csrf_token %}
+                        <button class="product-btn btn" name="cart-button">Add to Cart</button>
+                    </form>
+                    <form action="{% url 'store:index' %}" method="post">
+                        <button class="product-btn btn">Add to Wishlist</button>
+                    </form>
+                    <!-- <button class="product-btn btn">Add to Cart</button> -->
+                    <!-- <button class="product-btn btn">Add to Wishlist</button> -->
                 </div>
                 <div class="product-description">
                     <p>{{ product.description }}</p>
@@ -40,6 +47,22 @@
             </div>
         
         {% endblock %}
-        <script></script>
+
+        {% block script %}
+            <script>
+                document.addEventListener('DOMContentLoaded', () => {
+                    console.log("LOADING DOM")
+                    addToCart()
+                })
+                function addToCart() {
+                    let cartBtn = document.getElementsByName('cart-button')
+                    console.log(cartBtn)
+                    cartBtn[0].addEventListener('click', () => {
+                        alert("Added item to shopping cart!")
+                    })
+                }
+            </script>
+        {% endblock %}
+
     </body>
 </html>

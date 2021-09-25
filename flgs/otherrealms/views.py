@@ -77,3 +77,46 @@ def get_event(request, date):
             print("Event: ", type(event), event.serialize())
         print("Python loading event", event_details)
         return JsonResponse(([event.serialize() for event in event_details]), safe=False)
+
+# TEST_PRODUCTS = [
+#     'dnd': {
+#         'name': 'Dungeons and Dragons Start Set',
+#         'price': '19.99',
+#         'description': 'Get started with this cheap and easy to user DND Starter set, DM guide and rulebook included!',
+#         'image': 'image url',
+#         'availability': 0,
+#         'category': ['tabletop', 'roleplaying', 'rulebook']
+#     }
+#     ]
+
+# dictionary_list = [
+#     {'test': {
+#         '1': 1,
+#         '2': 2,
+#         '3': 3
+#     }},
+#     {'test2': {
+#         '1':1
+#     }},
+# ]
+
+def add_products(product_list):
+    """Add products to the store automatically with a product list instead of manually via admin page
+    Product list is a list of products as dictionaries such as 'product': [name, description, image, etc]
+    """
+
+    # Product.objects.create()
+    # Product.save()
+    pass
+
+# class ProductModel(models.Model):
+#     """Basic product details model"""
+#     name = models.CharField(max_length=100)
+#     price = models.DecimalField(max_digits=9, decimal_places=2)
+#     description = models.TextField(blank=True)
+#     image = models.ImageField(upload_to="images/")
+#     availability = models.IntegerField(default=0)
+#     categories = models.ManyToManyField(CategoryModel)
+
+#     def __str__(self):
+#         return self.name

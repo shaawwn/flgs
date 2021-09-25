@@ -97,16 +97,20 @@ h1 {
 }
 
 .navbar-user {
-    font-size: 18px;
+    font-size: 14px;
     margin: 5px;
     margin-top: 15px;
     /* margin: 5px; */
+    color: rgb(103, 143, 202)
 }
 
 .fa-shopping-cart {
     margin-top: 20px;
 }
 
+.navbar-user:hover, fa-shopping-cart:hover {
+    color:slategray;
+}
 #storefront-navbar {
     display: flex;
     justify-content: space-evenly;
@@ -280,3 +284,143 @@ h1 {
     grid-column: 1/4;
 }
 
+
+/* User account */
+
+.user-account-container {
+    display:flex;
+    flex-direction:column;
+    text-align: center;
+    padding: 30px;
+}
+
+.account-home {
+    width: 100%;
+}
+
+.account-details-container {
+    background-color: white;
+    display: grid;
+    grid-template-columns: 2fr 2fr 2fr;
+    grid-gap: 15px;
+    justify-content: center;
+    padding: 10px;
+}
+
+.account-details-card {
+    height: 130px;
+    background-color: slategray;
+    border-radius: 5px;
+    box-shadow: 2px 2px rgb(49, 71, 83);
+}
+
+.account-details-card:hover {
+    background-color: white;
+}
+.order-details {
+    display: flex;
+    background-color: white;
+    justify-content: space-evenly;
+    /* height: 500px; */
+    padding: 30px;
+    border-radius: 2px;
+}
+
+.current-order-details {
+    display: flex;
+    flex-direction: column;
+    margin-left: 30px;
+    background-color: green;
+    width: 40%;
+    box-shadow: 1px 1px rgb(49, 71, 83);
+}
+
+.order-history-details {
+    width: 35%;
+}
+
+.order-history-list {
+    /* text-align: center; */
+}
+
+.order-history-card {
+    /* width: 150px; */
+    width: 25vw; /* vw lets the div change size dynamically */
+    /* height: 75px; */
+    background-color: green;
+    margin: auto;
+    margin-top: 10px;
+    border-radius: 3px;
+    box-shadow: 2px 2px rgb(49, 71, 83);
+    font-size: 24px;
+    padding-top: 25px;
+    padding-bottom: 5px;
+
+}
+
+.current-order-details:hover, .order-history-card:hover {
+    background-color: slategray;
+}
+
+.user-account-settings {
+
+}
+
+.user-order-history {
+
+}
+
+.user-order-card {
+    display: flex;
+    flex-direction: column;
+    margin: auto;
+    width: 90%;
+    /* height: 30px; */
+    background-color: red;
+}
+
+
+/* Shopping Cart */
+.cart-totals-container {
+    background-color: white;
+    padding: 10px;
+}
+
+.cart-totals-headers {
+    display: grid;
+    grid-template-columns: 3fr 1fr 2fr;
+    border-bottom: 1px solid black;
+}
+.cart-item {
+    /* width: 500px; */
+    display: grid;
+    grid-template-columns: 3fr 1fr 2fr;
+    /* border: 1px solid black; */
+    border-bottom: 1px solid black;
+    /* background-color: green; */
+    padding: 5px;
+    /* height: 100px; */
+}
+
+.cart-item > p {
+    /* margin: auto; */
+    /* border: 1px solid black; */
+}
+
+.cart-item-details {
+    /* display: inline; */
+    display: flex;
+    margin-left: 30px;
+    /* justify-content:space-evenly; */
+    /* width: 100%; */
+}
+
+.cart-item-details > p {
+    margin-top: 20px;
+    margin-left: 25px;
+    /* margin-bottom: 5px; */
+}
+.cart-item-details > img {
+    width: 75px;
+    height: auto;
+}
