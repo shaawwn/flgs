@@ -25,7 +25,7 @@ class Address(models.Model):
     street2 = models.CharField(max_length=64, blank=True)
     city = models.CharField(max_length=64)
     state = models.CharField(max_length=2)
-    zip = models.CharField(max_length=10)
+    zip_code = models.CharField(max_length=10)
 
 class Billing(models.Model):
     """Model to hold a users card and billing information"""
@@ -74,7 +74,6 @@ class Order(models.Model):
     """Model for holding a user's order information, can be archived by setting completed=True
     Can be used for a User's Shopping Cart?
     """
-    # order_number (I think this will be assigned automatically)
     order_user = models.ForeignKey(User, default=None, on_delete=models.CASCADE)
     order_products = models.ForeignKey(ProductModel, null=True, default=None, on_delete=models.CASCADE, related_name="products")
     order_num_items = models.IntegerField(default=0)
@@ -90,21 +89,10 @@ class OrderItem(models.Model):
     quantity = models.IntegerField(default=0)
 
 
-# class CartItem(models.Model):
-#     """Shopping cart items, differs slightly from order items in that they just populate a shopping cart
-#     """
-#     shopping_cart = models.ForeignKey(ShoppingCart, on_delete=models.CASCADE, blank=True, default=None, related_name="cart_items")
-#     quantity = models.IntegerField(default=0)
-#     item = models.ForeignKey(ProductModel, default=None, on_delete=models.CASCADE, related_name="item")
-
 class ShoppingCart(models.Model):
     """User shopping cart, potentiallyi inherits from Order"""
-    # user = models.ForeignKey(User, default=None, on_delete=models.CASCADE)
     user = models.OneToOneField(User, null=True, default=None, on_delete=models.CASCADE)
-    # cart_items = models.ForeignKey(CartItem, null=True, default=None, on_delete=models.CASCADE, related_name="cart_item")
-    # products = models.ForeignKey(ProductModel, default=0, on_delete=models.CASCADE)
-    # products = models.ManyToManyField(ProductModel, related_name="cart_products")
-    
+
 
 class CartItem(models.Model):
     """Shopping cart items, differs slightly from order items in that they just populate a shopping cart

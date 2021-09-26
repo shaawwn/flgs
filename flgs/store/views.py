@@ -176,57 +176,31 @@ def add_to_cart(request, product):
     '''Add a product to a user's shopping car
     shopping_cart.cart_items == Order object
     '''
-    # if request.method == 'POST':
-    #     print("USER:", request.user, product)
-    #     product_obj = ProductModel.objects.get(name=product)
-    #     user = User.objects.get(username=request.user)
-    #     print("USER AFTER", user, user.id)
 
-    #     try:
-    #         print("TRY")
-    #         shopping_cart = ShoppingCart.objects.get(user_id=user)
-    #     except:
-    #         print("EXCEPT")
-    #         shopping_cart = ShoppingCart(user=user)
-    #         shopping_cart.save()
-    #     shopping_cart.products.add(product_obj)
-    #     shopping_cart.save()
 
     if request.method == 'POST':
         product_obj = ProductModel.objects.get(name=product)
         user = User.objects.get(username=request.user)
-        # cart_item = CartItem(shopping_cart=shopping_cart.objects.get(user=user), quantity=1, item=product_obj)
-
-
-
         try:
-            print("TRY")
             # If the cart exists, create variables to use
             shopping_cart = ShoppingCart.objects.get(user=user)
-            # user_order = Order.objects.get(order_user=user)
-            # shopping_cart.cart_items.shopping_cart = True
-            # user_order.shopping_cart = True
-            # shopping_cart.cart_items = user_order
             shopping_cart.save()
         except:
-            print("EXCEPT")
             # If cart doesn't exist, initialize
             shopping_cart = ShoppingCart(user=user)
-            print("SHOPPING CART", shopping_cart)
-            # user_order = Order(order_user=user)
-            # user_order.shopping_cart = True
-            # user_order.save()
-
-            # shopping_cart.cart_items = user_order
             shopping_cart.save()
-        print("OUTSIDE TRY/EXCEPT", shopping_cart)
+        
+        if product_obj in [x.item for x in shopping_cart.cart_items.all()]:
+            # Update the quantity of the item instead of creating a new item
+            cart_item = shopping_cart.cart_items.get(item=product_obj)
+            cart_item.quantity += 1
+            cart_item.save()
+            return HttpResponseRedirect(reverse('store:product_page', args=[product]))
+        # else:
+        #     print("Not in cart", product_obj, [x.item for x in shopping_cart.cart_items.all()])
         add_item = CartItem(quantity=1, item=product_obj)
         add_item.save()
-        # add_item.quantity = 1
-        print("CART ITEM CREATED", add_item.item)
-        # add_item.item.add(product_obj)
         shopping_cart.cart_items.add(add_item)
-        print("ADDING ITEM")
         shopping_cart.save()
         for item in shopping_cart.cart_items.all():
             print(item.item)
@@ -236,14 +210,41 @@ def add_to_cart(request, product):
 def cart(request, username):
     """Load user's shopping cart, if any"""
     user = User.objects.get(username=username)
-    shopping_cart = ShoppingCart.objects.get(user=user)
+    try:
+        shopping_cart = ShoppingCart.objects.get(user=user)
+
+    except:
+        message = 'There are no items in the shopping cart.'
+        return render(request, 'store/cart.html', {
+            "message": message
+        })
 
     cart = shopping_cart.cart_items.all()
+    total_price = 0
+    total_items = 0
     for prod in shopping_cart.cart_items.all():
-        print(prod.item.name)
+        # print(prod.item.price, prod.quantity)
+        total_price += prod.item.price * prod.quantity
+        total_items += prod.quantity
     return render(request, 'store/cart.html', {
         "cart": cart,
+        "total_price": total_price,
+        "total_items": total_items,
     })
+
+
+def checkout(request):
+    """Checkout page where users can confirm shipping/billing and confirm purchases"""
+    order = ShoppingCart.objects.get(user=request.user)
+    order_iterable = order.cart_items.all()
+    for item in order.cart_items.all():
+        print(item.item.name)
+
+    # Once a user confirms their order, create an order instance using the shopping cart
+    return render(request, 'store/checkout.html', {
+        "order": order_iterable,
+    })
+
 
 def error_page(request):
     """Returns an error Not Found page for broken links"""
