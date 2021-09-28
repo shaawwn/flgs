@@ -114,8 +114,12 @@ def account_page(request, user):
     """User account page"""
 
     current_order = True
+    products = ProductModel.objects.all()
+    for p in products:
+        print(p)
     return render(request, 'store/account.html', {
         "current_order": current_order,
+        "products": products,
     })
 
 
@@ -131,6 +135,12 @@ def load_recent_orders(request):
     '''
     pass
 
+def settings(request, user):
+    '''
+    User settings page
+    '''
+
+    return render(request, 'store/account/settings.html')
 # -----------------------------PRODUCT VIEWS ---------------
 # Functions for Loading Product Page
 def product_page(request, product):

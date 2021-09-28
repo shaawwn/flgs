@@ -295,7 +295,39 @@ h1 {
 }
 
 .account-home {
+    display: block;
     width: 100%;
+}
+
+.account-settings-container {
+    display: none;
+
+}
+
+.settings-details {
+    /* background-color: white; */
+    background-color:rgb(49, 71, 83);
+    display: flex;
+    flex-direction:column;
+    /* margin: auto; */
+    padding: 20px;
+    align-items: center;
+}
+
+.account-current-orders-container {
+    display: none;
+}
+
+.account-archived-orders-container {
+    display: none;
+}
+
+.account-wishlist-container {
+    display: none;
+}
+
+.account-seller-container {
+    display: none;
 }
 
 .account-details-container {
@@ -307,6 +339,7 @@ h1 {
     padding: 10px;
 }
 
+
 .account-details-card {
     height: 130px;
     background-color: slategray;
@@ -314,9 +347,38 @@ h1 {
     box-shadow: 2px 2px rgb(49, 71, 83);
 }
 
+.settings-card {
+    position: relative;
+    /* display: inline; */
+    text-align: left;
+    height: 100px;
+    width: 50%;
+    margin-top: 10px;
+}
+
+.account-editBtn {
+    position:absolute;
+    right: 5px;
+    background-color: grey;
+    width: 100px;
+    /* margin-right: 0px; */
+}
+
+.account-detail {
+    display:flex;
+    justify-content: space-between;
+    padding-left: 15px;
+    padding-right: 15px;
+}
 .account-details-card:hover {
     background-color: white;
 }
+
+.settings-card:hover{
+    background-color: slategray;
+}
+/* .account-settings-detail-card */
+/* Orders */
 .order-details {
     display: flex;
     background-color: white;

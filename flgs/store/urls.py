@@ -12,6 +12,7 @@ urlpatterns = [
     path("logout", views.logout, name="logout"),
     path("register", views.register, name="register"),
     path("account/<str:user>", views.account_page, name="account_page"),
+    path("account/settings", views.settings, name="settings"),
 
     # Product
     path("add_to_cart/<str:product>", views.add_to_cart, name="add_to_cart"),
