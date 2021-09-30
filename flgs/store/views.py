@@ -5,7 +5,7 @@ from django.shortcuts import render
 from django.http import HttpResponse, HttpResponseRedirect
 from django.urls import reverse
 import re
-from .models import User, CategoryModel, ProductModel, ShoppingCart, Order, CartItem
+from .models import User, UserAccount, CategoryModel, ProductModel, ShoppingCart, Order, CartItem
 import time
 
 # Helpers
@@ -106,7 +106,7 @@ def register(request):
         # print(email, password)
 
         auth_login(request, user)
-        return HttpResponseRedirect(reverse('store:index'))
+        return HttpResponseRedirect(reverse('store:account_page', kwargs={'user': user.username}))
     return render(request, 'store/register.html')
 
 # ------------------------------- USER ACCOUNT VIEWS -------
@@ -141,6 +141,22 @@ def settings(request, user):
     '''
 
     return render(request, 'store/account/settings.html')
+
+
+def user_details(request, user):
+    '''
+    API for returning user details in Javascript
+    '''
+    print("Fetch is working")
+    user = User.objects.get(username=user)
+    user_account = UserAccount.objects.get(user=user)
+
+    return HttpResponse("Response is working")
+    # if request.method == 'GET':
+    #     print("Fetch is working")
+
+
+
 # -----------------------------PRODUCT VIEWS ---------------
 # Functions for Loading Product Page
 def product_page(request, product):

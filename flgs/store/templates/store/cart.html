@@ -1,0 +1,53 @@
+{% extends 'store/store_template.html' %}
+
+{% load static %}
+
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title></title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="">
+    </head>
+    <body>
+        {% block body %}
+            <h1>{{ user.username }}'s Shopping Cart</h1>
+
+            {% if message %}
+                <h1>{{ message }}</h1>
+
+            {% else %}
+
+            <div class="cart-totals-container">
+                <div class="cart-totals-headers">
+                    <h3>Item</h3>
+                    <h3>Quantity</h3>
+                    <h3>Price</h3>
+                </div>
+                {% for item in cart %}
+                    <div class="cart-item">
+                        <div class="cart-item-details">
+                            <img src="{{ item.item.image.url }}">
+                            <p>{{ item.item.name }}</p>
+                        </div>
+                        <p>{{ item.quantity }}</p>
+                        <p>{{ item.item.price }}</p>
+                    </div>
+                {% endfor %}
+                <div class="cart-totals-headers">
+                    <p></p>
+                    <p>Items in cart: {{ total_items }}</p>
+                    <p>Total: {{ total_price }}</p>
+                    <a href="{% url 'store:checkout' %}"><button class="confirm-btn btn">Proceed to Checkout</button></a>
+                </div>
+            </div>
+            {% endif %}
+        {% endblock %}
+
+        <script></script>
+    </body>
+</html>

@@ -1,0 +1,109 @@
+{% extends 'store/store_template.html' %}
+
+{% load static %}
+
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title></title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="{% static '/css/main.css' %}">
+        <link rel="stylesheet" href="{% static '/css/store/store.css' %}">
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.3/css/all.css" integrity="sha384-SZXxX4whJ79/gErwcOYf+zWLeJdY/qpuqC4cAa9rOGUstPomtqpuNWT9wdPEn2fk" crossorigin="anonymous">
+
+    </head>
+    <body>
+        <!-- <div id="header-div">
+            <div class="header-user-container">
+                {% if user.is_authenticated %}
+                    <a href="{% url 'store:account_page' user.username %}"><h3 class="header-item navbar-user">{{ user.username }}</h3></a>
+                    <a href="{% url 'store:logout' %}"><h3 class="header-item navbar-user">Logout</h3></a>
+                    <a href="{% url 'store:shopping_cart' user.username %}"><i class="header-item fas fa-shopping-cart fa-lg navbar-user"></i></a>
+                {% else %}
+                    <a href="{% url 'store:login' %}"><h3 class="header-item navbar-user">Login</h3></a>
+                {% endif %}
+
+
+            </div>
+        </div>
+        <div id="banner">
+            <div id="banner-container">
+                <img id="gunther-banner" src="{% static 'images/gunther_invis.png' %}">
+                <img id='banner-name' src="{% static 'images/banner.png' %}">
+            </div>
+        </div> -->
+        {% block body %}
+        <h1 style="text-align: center; color: rgb(183, 193, 208)">Checkout</h1>
+        <div class="user-account-container checkout">
+
+            <div class="shipping-billing-forms">
+                <h2>Shipping Information</h2>
+                <form action="#" method="post" class="shipping-form">
+                    {% csrf_token %}
+                    <!-- Name -->
+                    <input class="shipping-form-input" type="text" placeholder="Name on Card">
+                    <!-- Card Details -->
+                    <input class="shipping-form-input" type="text" placeholder="Card #">
+                    <!-- Address -->
+                    <input class="shipping-form-input" type="text" placeholder="Street Address">
+                    <!-- City/State -->
+                    <input class="shipping-form-input" type="text" placeholder="City">
+                    <input class="shipping-form-input" type="text" placeholder="Put scroll options">
+                    <!-- Phone number -->
+                    <input class="shipping-form-input" type="tel" placeholder="###-###-####">
+                    <!-- Email -->
+                    <input class="shipping-form-input" type="text" placeholder="Email address">
+                    <input class="shipping-form-submit btn" type="submit" value="Confirm Shipping Address">
+                </form>
+                <hr>
+                <h2>Billing Information</h2>
+                <form action="#" method="post" class="shipping-form">
+                    <!-- Same as shipping -->
+                    {% csrf_token %}
+                    <!-- Name -->
+                    <input class="shipping-form-input" type="text" placeholder="Name on Card">
+                    <!-- Card Details -->
+                    <input class="shipping-form-input" type="text" placeholder="Card #">
+                    <!-- Address -->
+                    <input class="shipping-form-input" type="text" placeholder="Street Address">
+                    <!-- City/State -->
+                    <input class="shipping-form-input" type="text" placeholder="City">
+                    <input class="shipping-form-input" type="text" placeholder="Put scroll options">
+                    <!-- Phone number -->
+                    <input class="shipping-form-input" type="tel" placeholder="###-###-####">
+                    <!-- Email -->
+                    <input class="shipping-form-input" type="text" placeholder="Email address">
+                    <input class="shipping-form-submit btn" type="submit" value="Confirm Shipping Address">
+
+                </form>
+            </div>
+
+            <div class="checkout-container">
+                <h3>User's Order</h3>
+                <div class="checkout-orders">
+                    {% for item in order %}
+                        <img class="checkout-order-img" src="{{ item.item.image.url }}">
+                        <h4>{{ item.item.name }}</h4>
+                        <h4>{{ item.quantity }}</h4>
+                        <h4>{{ item.item.price }}</h4>
+
+                    {% endfor %}
+                </div>
+                <div class="checkout-orders totals">
+                    <p></p>
+                    <h4>Total:</h4>
+                    <h4>4</h4>
+                    <h4>76.96</h4>
+                </div>
+                <button class="checkout-btn btn">Proceed to Purchase</button>
+            </div>
+        </div>
+        {% endblock %}
+        <script></script>
+
+    </body>
+</html>

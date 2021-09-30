@@ -121,5 +121,5 @@ class UserAccount(models.Model):
     billing_information = models.ForeignKey(Billing, on_delete=models.CASCADE) # 
     shipping_information = models.ManyToManyField(Address) # Because a user could have multiple shipping addresses
 
-    def __str__(self):
-        return self.user
+    # def __str__(self):
+    #     return self.user

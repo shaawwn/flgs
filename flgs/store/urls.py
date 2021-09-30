@@ -19,6 +19,8 @@ urlpatterns = [
     path("cart/<str:username>", views.cart, name="shopping_cart"),
 
     # Checkout/Purchase
-    path("checkout", views.checkout, name="checkout")
+    path("checkout", views.checkout, name="checkout"),
+
     # API routes
+    path("user_details/<str:user>", views.user_details, name="user_details")
 ]

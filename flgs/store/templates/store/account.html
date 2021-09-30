@@ -1,0 +1,138 @@
+{% load static %}
+
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>{{ user.username }}'s Account</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="{% static '/css/main.css' %}">
+        <link rel="stylesheet" href="{% static '/css/store/store.css' %}">
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.3/css/all.css" integrity="sha384-SZXxX4whJ79/gErwcOYf+zWLeJdY/qpuqC4cAa9rOGUstPomtqpuNWT9wdPEn2fk" crossorigin="anonymous">
+
+    </head>
+    <body>
+        <div id="header-div">
+            <div class="header-image-container">
+                <a href="{% url 'index' %}"><img src="{% static '/images/banner.png' %}" class='header-item sm-img-header'></a>
+            </div>
+            <!-- <img src="{% static '/images/banner.png' %}" class=' header-item sm-img'> -->
+            <div class="header-item navbar-search-container">
+                <input class="header-item navbar-search" type="search"> 
+                <input class="navbar-search btn search-btn" type="submit" value="?">   
+            </div>
+            <div class="header-user-container">
+                {% if user.is_authenticated %}
+                    <h3 class="header-item navbar-user">{{ user.username }}</h3>
+                    <a href="{% url 'store:logout' %}"><h3 class="header-item navbar-user">Logout</h3></a>
+                    <a href="{% url 'store:shopping_cart' user.username %}"><i class="header-item fas fa-shopping-cart fa-lg navbar-user"></i></a>
+
+                {% else %}
+                    <a href="{% url 'store:login' %}"><h3 class="header-item navbar-user">Login</h3></a>
+                {% endif %}
+                <!-- <a href="{% url 'store:login' %}"><h3 class="header-item navbar-user">Login</h3></a> -->
+                <!-- <i class="header-item fas fa-shopping-cart fa-lg navbar-user"></i> -->
+                <!-- https://fontawesome.com/v5.15/icons/shopping-cart -->
+
+            </div>
+        </div>
+        
+            <div id="storefront-banner">
+            <div id="banner">
+                <div id="banner-container">
+                    <img id="gunther-banner" src="{% static 'images/gunther_invis.png' %}">
+                    <img id='banner-name' src="{% static 'images/banner.png' %}">
+                </div>
+            </div>
+        </div>
+        <script src="{% static '/js/store/storefront.js' %}"></script>
+        <div id="storefront-navbar">
+            <a href="{% url 'store:index' %}"><h3 class="nav-item">Storefront</h3></a>
+            <a href="{% url 'store:category_page' 'Comics' %}"><h3 class="nav-item">Comics</h3></a>
+            <a href="{% url 'store:category_page' 'Games' %}"><h3 class="nav-item">Games</h3></a>
+            <a href="{% url 'store:category_page' 'Collectibles' %}"><h3 class="nav-item">Collectibles</h3></a>
+            <a href="{% url 'store:category_page' 'Wargaming' %}"><h3 class="nav-item">Wargaming</h3></a>
+            <a href="{% url 'store:category_page' 'Merchandise' %}"><h3 class="nav-item">Merchandise</h3></a>
+        </div>
+        {% if user.is_authenticated %}
+            <h1 style="font-size: 48px;">Welcome, {{ user.username }}</h1>
+
+            <div class="user-account-container">    
+                <h1>Account Details</h1>
+                <div class="account-home">
+                    <h1>{{ user.username }}'s account</h1>
+
+                    <div class="account-details-container account-current-orders">
+                        <div class="account-details-card">
+                            <i class="header-item fas fa-shopping-cart fa-lg navbar-user"></i>
+                            <strong><p>Current Orders</p></strong>
+                            <p>View current order details</p>
+                        </div>
+                        <div class="account-details-card account-archived-orders">
+                            <i class="header-item fas fa-box-open fa-lg navbar-user"></i>
+                            <p>Past Orders</p>
+                            <p>View past order details</p>
+                        </div>
+                        <div class="account-details-card account-wishlist">
+                            <i class="header-item fas fa-gift fa-lg navbar-user"></i>
+                            <p>Wishlist</p>
+                            <p>View your wishlist</p>
+                        </div>
+                        <div class="account-details-card account-settings">
+                            <i class="header-item fas fa-sliders-h fa-lg navbar-user"></i>
+                            <p>Account Settings</p>
+                            <p>Change or update account settings</p>
+                        </div>
+                        <div class="account-details-card account-seller">
+                            <i class="header-item fas fa-dollar-sign fa-lg navbar-user"></i>
+                            <p>Seller Account</p>
+                            <p>Manage seller account</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="account-settings-container">
+                    <button class="account-home-btn btn">Back to Account</button>
+                    <h1>Settings load here</h1>
+                </div>
+                <div class="account-current-orders-container">
+                    <button class="account-home-btn btn">Back to Account</button>
+                    <h1>Current orders here</h1>
+                </div>
+                <div class="account-archived-orders-container">
+                    <button class="account-home-btn btn">Back to Account</button>
+                    <h1>Past orders here</h1>
+                </div>
+                <div class="account-wishlist-container">
+                    <button class="account-home-btn btn">Back to Account</button>
+                    <h1>Wishlist here</h1>
+                </div>
+                <div class="account-seller-container">
+                    <button class="account-home-btn btn">Back to Account</button>
+                    <h1>Seller account details here</h1>
+                </div>
+
+
+                <div class="store-specials scrollable">
+            
+                    <i class="fas fa-chevron-left fa-5x scroll-chevron"></i>
+        
+                    {% for product in products %}
+                    <div class="product-card special-card" data-product-name="{{ product.name }}">
+                        <img class="sm-img" src="{{ product.image.url }}">
+                        <p>{{ product.name }}</p>
+                    </div>
+        
+                    {% endfor %}
+                    <i class="fas fa-chevron-right fa-5x scroll-chevron"></i>
+                </div>
+            </div>
+        {% else %}
+            <h1>No user account information</h1>
+        {% endif %}
+
+        <script src="{% static '/js/store/account.js' %}"></script>
+    </body>
+</html>

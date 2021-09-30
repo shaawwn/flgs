@@ -1,0 +1,17 @@
+# Pages
+
+    User account page with pages showing orders, current orders, etc
+
+
+# Layout
+
+    
+
+# Javascript
+
+    Need to add scrolling animation for storefront page specials
+
+# Styling
+
+    Touch up styling of fonts
+
